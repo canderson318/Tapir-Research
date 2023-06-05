@@ -1,0 +1,12 @@
+01_max_min_temp_MA.csv
+02_max_min_temp_MA.csv
+03_max_min_temp_MA.csv
+04_max_min_temp_MA.csv
+05_max_min_temp_MA.csv
+06_max_min_temp_MA.csv
+07_max_min_temp_MA.csv
+08_max_min_temp_MA.csv
+09_max_min_temp_MA.csv
+10_max_min_temp_MA.csv
+11_max_min_temp_MA.csv
+12_max_min_temp_MA.csv

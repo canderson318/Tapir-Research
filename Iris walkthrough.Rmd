@@ -1,0 +1,198 @@
+---
+title: "Iris walkthrough"
+output: html_notebook
+---
+
+ 
+
+```{r}
+attach(iris)
+head(iris)
+
+```
+
+```{r}
+set.seed(1234)
+
+fit <- kmeans(iris[1:4], 3)
+
+names(fit)
+
+```
+```{r}
+unclass(fit)
+
+
+
+```
+
+```{r}
+sapply(fit,class)
+
+```
+
+```{r}
+fit[2]#extracts list
+print('Centroids')
+fit[[2]]#extracts matrix
+
+
+```
+
+```{r}
+means<- fit$centers
+library(reshape2)
+#aggregate cluster table
+dfm<- melt(means)
+names(dfm)<- c("Cluster", "Measurement", "Centimeters")
+dfm$Cluster <- factor(dfm$Cluster)
+
+dfm
+
+
+```
+
+
+```{r}
+library(ggplot2)
+ggplot(data= dfm, 
+       aes(x=Measurement, y=Centimeters, group= Cluster))+
+  geom_point(size = 3, aes(shape = Cluster, color= Cluster))+
+  geom_line(size = 1, aes(color= Cluster))+
+  ggtitle("Profiles for Iris Cluster")
+
+
+```
+
+````{r}
+
+p.values<- c(.04, .90, .0012,.005)
+ifelse(p.values<.05, "significant", "not significant")
+
+```
+```{r}
+f<- function(x, y, z=1){
+  result <- x + (2**y) + (3**z)
+  return(result)
+}
+
+f(3,3,3)#38
+
+f(2,4,)
+
+
+
+
+```
+
+```{r}
+x<- 5
+
+myenv<- new.env()
+assign("x", "Homer", env= myenv)
+ls()
+ls(myenv)
+x
+get("x", env= myenv)
+
+
+```
+```{r}
+#function trims the top and bottom 10%s
+trim<- function(p){
+  trimit<- function(x){
+    n<- length(x)
+    lo<-floor(n*p) + 1
+    hi <- n + 1 - lo
+    x<- sort.int(x, partial = unique(c(lo, hi)))[lo:hi]
+  }
+  trimit
+}
+
+x<- 1:20
+
+trim10pct <- trim(.1)
+y<- trim10pct(x)
+
+y
+
+```
+
+
+```{r}
+makeFunction<- function(k){
+  f<- function(x){
+    print(x + k)
+  }
+}
+
+g<- makeFunction(10)
+k<-2
+
+g(k)
+g.ls<- ls(environment(g))
+
+environment(g)$k
+```
+
+```{r}
+summary(women)
+
+fit<- lm(weight ~ height, data = women)
+summary(fit)
+
+```
+
+
+```{r}
+mymethod <- function(x, ...)UseMethod("mymethod")
+mymethod.a<- function(x) print("Using A")
+mymethod.b <- function(x) print("Using B")
+mymethod.default <- function(x) print("Using Default")
+
+x<- 1:5
+y<- 6:10 
+z<- 10:15
+class(x)<- "a"
+class(y)<- "b"
+mymethod(x)
+mymethod(y)
+mymethod(z)
+
+class(z) <- c("a", "b")
+mymethod(z)
+
+class(z) <- c("c", "a", "b")
+mymethod(z)
+
+```
+
+
+```{r}
+library(foreach)
+library(doParallel)
+registerDoParallel(cores=4)
+
+eig<-function(n,p){
+  x<-matrix(rnorm(1000000), ncol= 100)
+  r<- cor(x)
+  eigen(r)$values
+}
+
+n <- 1000000
+p <- 100
+k <- 500
+
+system.time(
+  x <- foreach(i=1:k, .combine=rbind) %do% eig(n,p)
+)
+
+system.time(
+  x<- foreach(i=1:k, .combine=rbind) %dopar% eig(n,p)
+)
+```
+
+
+
+
+

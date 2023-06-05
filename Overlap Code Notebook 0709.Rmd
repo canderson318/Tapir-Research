@@ -1,0 +1,626 @@
+---
+title: "Overlap Code"
+output: html_notebook
+---
+
+##Packages needed
+```{r}
+library(data.table)
+library(overlap)
+library(dplyr)
+library(sp)
+```
+
+##Functions written by TJ to run statistics -rarely need to be changed
+
+\newline
+
+```{r Statistics Functions}
+#declare Functions for Easy Reference ----
+#Coefficient of overlapping and Confidence Interval Function. 
+  #animal1 and animal2 are vectors of the time of observations in radians
+overlapCI <- function(animal1, animal2, numboot) {
+  
+  if (min(length(animal1), length(animal2)) <= 75 & min(length(animal1), length(animal2)) > 20) {
+    
+    ovlEstimate <- overlapEst(animal1, animal2, adjust=c(0.8, NA, NA))[1]
+    
+    boot1 <- resample(animal1, numboot)
+    boot2 <- resample(animal2, numboot)
+    ovl.boot <- bootEst(boot1, boot2, adjust=c(0.8, NA, NA))[,1]
+    ovl.boot.ci <- bootCI(ovlEstimate, ovl.boot)
+    
+    ovlEstimate<- round(ovlEstimate, digits = 4)
+    ovlLower <- round(ovl.boot.ci[4,1], digits = 4)
+    ovlUpper <- round(ovl.boot.ci[4,2], digits = 4)
+    
+    ovl <- (data.frame(
+      "CI Estimate" = ovlEstimate,
+      "CI Lower" = ovlLower,
+      "CI Upper" = ovlUpper,
+      row.names = NULL
+    ))
+  } else if (min(length(animal1), length(animal2)) > 75) {
+    
+    ovlEstimate <- overlapEst(animal1, animal2, adjust=c(NA, 1, NA))[2]
+    
+    boot1 <- resample(animal1, numboot)
+    boot2 <- resample(animal2, numboot)
+    
+    ovl.boot <- bootEst(boot1, boot2, adjust=c(0.8, NA, NA))[,1]
+    ovl.boot.ci <- bootCI(ovlEstimate, ovl.boot)
+    
+    ovlEstimate<- round(ovlEstimate, digits = 4)
+    ovlLower <- round(ovl.boot.ci[4,1], digits = 4)
+    ovlUpper <- round(ovl.boot.ci[4,2], digits = 4)
+    
+    ovl <<- (data.frame(
+      "CI Estimate" = ovlEstimate,
+      "CI Lower" = ovlLower,
+      "CI Upper" = ovlUpper,
+      row.names = NULL
+    ))
+    
+  } else {    #Probably not used because eliminate any sample size that is less than or equal to 20
+    ovlEstimate=NA
+    ovlLower=NA
+    ovlUpper=NA
+    ovl <<- (data.frame(
+      "CI Estimate" = ovlEstimate,
+      "CI Lower" = ovlLower,
+      "CI Upper" = ovlUpper,
+      row.names = NULL
+    ))
+  }
+  
+  
+  return(ovl)}
+
+#Declaring Watson functions, for easy calling later
+  #x and y are vectors f the time of observations  in radians
+watson2 <- function(x, y) { #Function to calculate U-squared statistic, modified to work with "tied" data (See: Zar 1999)
+  n1 <- length(x)
+  n2 <- length(y)
+  #if (min(n1, n2) <= 17) return("Sample too small")
+  N <- n1+n2
+  
+  a <- c(x,y) #Putting all unique values into one ordered set, creating a unified coordinate system
+  a <- a[duplicated(a) == FALSE]
+  a <- a[order(a)]
+  kmax <- length(a)
+  
+  t1 <- t2 <- m1 <- m2 <- c1 <- c2 <- rep.int(0, kmax) #Preallocating several variables
+  
+  for (k in 1:kmax) { #Finding the frequency of each value in x and y, respectively
+    t1[k] <- sum(x==a[k])
+    t2[k] <- sum(y==a[k])
+  }
+  
+  m1 <- cumsum(t1) #Calculating the cumulative frequency distributions of x and y, respectively
+  m2 <- cumsum(t2)
+  
+  c1 <- m1/n1 #Calculating the cumulative relative frequency distributions of x and y, respectively
+  c2 <- m2/n2
+  
+  d <- c1-c2 
+  t <- t1+t2 #The total frequency of each value; used when there are multiple observations of a value (ties)
+  
+  da <- sum(d*t)
+  db <- sum(d*d*t)
+  U2 <- ((n1*n2)/(N^2))*(db - ((da^2)/N)) #Calculating the U-squared statistic
+  
+  return(U2)
+}#function called in watson2test to calculate U statistic
+
+watson2test <- function(x, y) { #Function to approximate the p-value of Watson's U-squared, given two vectors (See: Tiku 1965)
+  U2 <- watson2(x, y) #Calculate U-squared
+  N <- length(x) + length(y)
+  
+  a <- ((21*N)-56)/(840*(N-1.5))
+  b <- (N-1.5)/(42*N)
+  f <- ((49*N)*(N-1))/(20*((N-1.5)^2)) #Approximation constants
+  
+  chi <- (U2-a)/b
+  p <- pchisq(q = chi, df = f, lower.tail = FALSE) #Approximating from chi-squared distribution
+  watson<-data.frame("Watson Stat" = round(U2, digits=4), "Watson P-value" = p)
+  return(watson)
+}#calculates p-value
+
+
+#Declaring W statistic functions, for easy calling later
+
+w.stat <- function(...) {
+  
+  #Function to calculate W statistic from 2 or more vectors of data (in RADIANS)
+  
+  
+  
+  #Data input and organization
+  
+  dataList <- list(...)
+  
+  unData <- data.frame(Point = sort(unlist(dataList)))
+  
+  n <- unlist(lapply(dataList, length)) #n is vector of sample sizes of each input vector
+  
+  N <- sum(n) #N is the *total* sample size, how many points were recorded overall
+  
+  r <- length(n) #r is the number of vectors input
+  
+  
+  
+  #Linear Rank
+  
+  unData["Rank"] <- 1:N
+  
+  for (i in 1:N) {
+    
+    whenSame <- unData$Point == unData$Point[i] #Create logical vector of which points of unData$Point are the same as a given point
+    
+    numSame <- sum(whenSame) #How many times does this value appear?
+    
+    
+    
+    if (numSame > 1) { #If a value appears more than once...
+      
+      unData$Rank[whenSame] <- rep(mean(unData$Rank[whenSame]), times = numSame) #...every point with that value should take the average Rank
+      
+    }
+    
+  }
+  
+  
+  
+  unData["Uniform"] <- 2 * pi * unData$Rank / N #Circular Rank, a.k.a: "Uniform Score"
+  
+  
+  
+  #Calculating W
+  
+  C <- S <- rep(0, times = length(n)) #Preallocate values
+  
+  for (i in 1:length(n)) {
+    
+    for (j in 1:n[i]) {
+      
+      rankOrder <- unData$Uniform[unData$Point == dataList[[i]][j]]
+      
+      rankOrder <- mean(rankOrder) #mean() condenses rankOrder to a single value if vector
+      
+      C[i] <- C[i] + cos(rankOrder)
+      
+      S[i] <- S[i] + sin(rankOrder)
+      
+    }
+    
+  }
+  
+  
+  
+  W <- 2 * sum((C^2 + S^2)/n)
+  
+  return(W)
+  
+}#function called in w.prob to calculate W statistic
+
+w.prob <- function(..., trials = numboot, randomize = FALSE) {
+  
+  #Function to calculate p-value of the W statistic of given 2+ vectors of data (in RADIANS)
+  
+  
+  
+  #Data input 
+  
+  dataList <- list(...)
+  
+  W0 <- do.call(what = w.stat, args = dataList) #W statistic of actual data
+  
+  n <- unlist(lapply(dataList, length)) #n is vector of sample sizes of each input vector
+  
+  N <- sum(n) #N is the *total* sample size, how many points were recorded overall
+  
+  r <- length(n) #r is the number of vectors input
+  
+  
+  
+  if(randomize | min(n) < 10) {
+    
+    #Randomization test
+    
+    randW <- rep(x = NA, times = trials) #Preallocate result vector
+    
+    
+    
+    for (i in 1:trials) {
+      
+      randList <- list()
+      
+      randDat <- sample(x = unlist(dataList), size = N, replace = FALSE) #Randomly resample points for each data vector from total population without replacement
+      
+      for (j in 1:r) {
+        
+        if (j == 1) randList[[1]] <- randDat[1:n[j]] #The first "new" data vector has n[1] points
+        
+        else {
+          
+          nStart <- length(unlist(randList))
+          
+          randList[[j]] <- randDat[(nStart+1):(nStart+n[j])] #The j'th "new" data vector has n[j] points
+          
+        }
+        
+      }
+      
+      randW[i] <- do.call(what = w.stat, args = randList) #Once all "new" data vectors constructed, calculate W of "new" dataset and store it in the randW vector
+      
+    }
+    
+    sortW <- sort(randW) #Arrange W statistics from randomization in ascending order
+    
+    p <- which.min(abs(sortW-W0)) #Figure out where W0 fits into the randomized distribution
+    
+    return(data.frame("W Stat" = round(W0, digits=4), "W P-value" = 1-(p/trials))) #p-value = the fraction of trials that gave a W greater than W0
+    
+  }
+  
+  else {
+    
+    return(data.frame("W Stat" = round(W0, digits=4), "W P-value" = pchisq(q = W0, df = 2*r - 2, lower.tail = FALSE))) #Approximate with Chi-square
+    
+  }
+  
+}#calculates p-value
+
+#Functions to bin data 
+  #x is an vector of times of observations in radians, bins has a default of 12
+binning <- function(x, bins = 12) {
+  #x is a vector of times in radians
+  #bins is the number of bins to put the data in
+  
+  cutoffs <- seq(from = 0, to = 2*pi, length.out = bins+1) #creates cutoffs for bins (time is in radians)
+  n <- length(cutoffs)
+  output <- rep(NA, times = length(x))   #puts all values to NA
+  
+  for (i in cutoffs[-n]) {
+    output <- ifelse(
+      test = x >= i,               #If x is greater than cutoff[n]...
+      yes = which(i == cutoffs),   #Then output should be n
+      no = output                  #Else it should stay what it is
+    )
+  }
+  
+  return(output)
+}#bins data into 12 group
+
+#Function to calculate Chi-Squared
+chisquared <- function(animal1, animal2, bins=12) {
+  animal1bin <- binning(animal1, bins)
+  animal1bin <- setNames(tabulate(animal1bin), 1:max(animal1bin))
+  animal2bin <- binning(animal2, bins)
+  animal2bin <- setNames(tabulate(animal2bin), 1:max(animal2bin))
+  animalbins <- rbind(animal1bin, animal2bin)
+  size = 2 * bins
+  
+  chistat <- fisher.test(animalbins, simulate.p.value=TRUE, B=1e5) #may need B=1e7 (# replicaetes)
+  pvalue = chistat["p.value"]
+  
+  pvalue <- unlist(pvalue, use.names = FALSE) #removes unwanted name of value so can assign, weird bug that didn't occur with other statistics
+  
+  return(pvalue)
+}
+
+
+```
+
+```{r Plot Functions}
+#Plot functions ----
+#Customized overlap plot code to include shading of night hours
+#xaxsSelect controls if data lines go to plot edges ("i") or that there is space between ("n")
+#nighShade controls if include blue shading for night hours
+densityPlotCustom <- function (A, xscale = 24, xcenter = c("noon", "midnight"), add = FALSE, rug = FALSE, extend = NULL, n.grid = 128, kmax = 3, adjust = 1, lwd=2, nightShade=TRUE, xaxsSelect="i", ...) {
+  
+  isMidnt <- match.arg(xcenter) == "midnight"
+  bw <- getBandWidth(A, kmax = kmax)/adjust
+  if (is.na(bw)) 
+    stop("Bandwidth estimation failed.")
+  if (is.null(extend)) {
+    xx <- seq(0, 2 * pi, length = n.grid)
+  }
+  else {
+    xx <- seq(-pi/4, 9 * pi/4, length = n.grid)
+  }
+  if (isMidnt) 
+    xx <- xx - pi
+  
+  densA <- densityFit(A, xx, bw)
+  xsc <- if (is.na(xscale)) 
+    1
+  else xscale/(2 * pi)
+  toPlot <- cbind(x = xx * xsc, y = densA/xsc)
+  dots <- list(...)
+  if (length(dots) == 1 && class(dots[[1]]) == "list") 
+    dots <- dots[[1]]
+  defaultArgs <- list(main = deparse(substitute(A)), 
+                      bty = "o", 
+                      type = "l", 
+                      xlab = "Time", 
+                      ylab = "Density", 
+                      lwd=2, 
+                      font.axis=2, 
+                      ylim =c(0, max(toPlot[, "y"])))
+  
+  useArgs <- modifyList(defaultArgs, dots)
+  if (!add) {
+    selPlot <- names(useArgs) %in% c(names(as.list(args(plot.default))), 
+                                     names(par(no.readonly = TRUE)))
+    plotArgs <- useArgs[selPlot]
+    plotArgs$x <- toPlot
+    plotArgs$y <- NULL
+    plotArgs$type <- "n"
+    plotArgs$xaxt <- "n"
+    plotArgs$xaxs <- xaxsSelect #custom addition. "i" means no white space between data and xaxis
+    do.call(plot, plotArgs, quote = TRUE)
+    abline(h = 0, col = "grey")
+      edge <- par("usr")
+    if(nightShade){
+        rect(edge[1],edge[3],6,edge[4], col=rgb(105/255, 167/255, 203/255,0.6),border=NA) #custom addition to color hours before dawn. 0.6 transparency (changed to 0.4 for overlap)
+    rect(18,edge[3],edge[2],edge[4], col=rgb(105/255, 167/255, 203/255,0.6),border=NA) #custom addition to color hours after sunset. 0.6 transparency (changed to 0.4 for overlap)
+    }
+    
+    if (!is.null(extend)) {
+      if (isMidnt) {
+        wrap <- c(-pi, pi) * xsc
+      }
+      else {
+        wrap <- c(0, 2 * pi) * xsc
+      }
+      rect(c(edge[1], wrap[2]), rep(edge[3], 2), c(wrap[1], 
+                                                   edge[2]), rep(edge[4], 2), border = NA, col = extend)
+      box(bty = useArgs$bty)
+    }
+  }
+  selPlot <- names(useArgs) %in% names(par(no.readonly = TRUE))
+  plotArgs <- useArgs[selPlot]
+  plotArgs$x <- toPlot
+  plotArgs$y <- NULL
+  do.call(lines, plotArgs, quote = TRUE)
+  if (rug) {
+    if (isMidnt) 
+      A <- ifelse(A < pi, A, A - 2 * pi)
+    rug(A * xsc, ...)
+  }
+  return(invisible(as.data.frame(toPlot)))
+}
+
+overlapPlotCustom <- function (A, B, xscale = 24, xcenter = c("noon", "midnight"), linetype = c(1, 2), linecol = c("black", "blue"), linewidth = c(2,2), olapcol = "lightgrey", rug = FALSE, extend = NULL,  n.grid = 128, kmax = 3, adjust = 1, nightShade = TRUE, xaxsSelect="i", ...) 
+{
+  isMidnt <- match.arg(xcenter) == "midnight"
+  bwA <- getBandWidth(A, kmax = kmax)/adjust
+  bwB <- getBandWidth(B, kmax = kmax)/adjust
+  if (is.na(bwA) || is.na(bwB)) 
+    stop("Bandwidth estimation failed.")
+  xsc <- if (is.na(xscale)) 
+    1
+  else xscale/(2 * pi)
+  if (is.null(extend)) {
+    xxRad <- seq(0, 2 * pi, length = n.grid)
+  }
+  else {
+    xxRad <- seq(-pi/4, 9 * pi/4, length = n.grid)
+  }
+  if (isMidnt) 
+    xxRad <- xxRad - pi
+  xx <- xxRad * xsc
+  densA <- densityFit(A, xxRad, bwA)/xsc
+  densB <- densityFit(B, xxRad, bwB)/xsc
+  densOL <- pmin(densA, densB)
+  dots <- list(...)
+  if (length(dots) == 1 && class(dots[[1]]) == "list") 
+    dots <- dots[[1]]
+  defaultArgs <- list(main = paste(deparse(substitute(A)), 
+                                   "and", deparse(substitute(B))), xlab = "Time", ylab = "Density", 
+                      bty = "o", type = "l", xlim = range(xx), ylim = c(0, 
+                                                                        max(densA, densB)), font.axis=2)
+  useArgs <- modifyList(defaultArgs, dots)
+  selPlot <- names(useArgs) %in% c(names(as.list(args(plot.default))), 
+                                   names(par(no.readonly = TRUE)))
+  plotArgs <- useArgs[selPlot]
+  plotArgs$x <- 0
+  plotArgs$y <- 0
+  plotArgs$type <- "n"
+  plotArgs$xaxt <- "n"
+  plotArgs$xaxs <- xaxsSelect #custom addition. "i" means no white space between data
+  
+  do.call(plot, plotArgs, quote = TRUE)
+  polygon(c(max(xx), min(xx), xx), c(0, 0, densOL), border = NA, 
+          col = olapcol)
+  edge <- par("usr")
+  if (nightShade){
+        rect(edge[1],edge[3],6,edge[4], col=rgb(105/255, 167/255, 203/255,0.6),border=NA) #custom addition to color hours before dawn. 0.6 transparency (changed to 0.4 for overlap)
+    rect(18,edge[3],edge[2],edge[4], col=rgb(105/255, 167/255, 203/255,0.6),border=NA) #custom addition to color hours after sunset. 0.6 transparency (changed to 0.4 for overlap)
+  }
+  
+  if (!is.null(extend)) {
+    if (isMidnt) {
+      wrap <- c(-pi, pi) * xsc
+    }
+    else {
+      wrap <- c(0, 2 * pi) * xsc
+    }
+    edge <- par("usr")
+    rect(c(edge[1], wrap[2]), 
+         rep(edge[3], 2), c(wrap[1],edge[2]), 
+         rep(edge[4], 2), border = NA, col = extend)
+    box(bty = useArgs$bty)
+  }
+  segments(xx[1], 0, xx[n.grid], 0, lwd = 0.5)
+  lines(xx, densA, lty = linetype[1], col = linecol[1], lwd = linewidth[1])
+  lines(xx, densB, lty = linetype[2], col = linecol[2], lwd = linewidth[2])
+  if (rug) {
+    if (isMidnt) {
+      A <- ifelse(A < pi, A, A - 2 * pi)
+      B <- ifelse(B < pi, B, B - 2 * pi)
+    }
+    axis(1, at = A * xsc, labels = FALSE, tcl = 0.35, lwd = 0, 
+         lwd.ticks = 0.5, col = linecol[1])
+    axis(1, at = B * xsc, labels = FALSE, tcl = -0.35, lwd = 0, 
+         lwd.ticks = 0.5, pos = 0, col = linecol[2])
+  }
+  return(invisible(data.frame(x = xx, densityA = densA, densityB = densB)))
+}
+
+plotOverlap <- function(animalname1,animalname2, animal1, animal2) {
+  par(ps=40, lwd=1.5, mar=c(6.5,8.5,5,2), cex.axis=0.7, mgp=c(5,1.5,0))#3rd 3
+  overlapPlotCustom(
+    animal1, animal2
+    ,main=""
+    ,xlab="Time of Day"
+    ,ylab="Temporal Density"
+    ,rug=TRUE
+    ,xaxt="n"#remove axis labels so rewrite with custom
+    ,yaxt="n"#remove axis labels so rewrite with custom
+  )
+  #add x-axis so labels within boundaries of plot and spaced
+  axis(1, at=c(0), labels=c("midnight"), cex.axis=xaxisSize, font=1, hadj=0) 
+  axis(1, at=c(6, 12, 18), labels=c("      sunrise", "noon", "sunset      "), cex.axis=xaxisSize, font=1, hadj=0.5) 
+  axis(1, at=c(24), labels=c("midnight"), cex.axis=xaxisSize, font=1, hadj=1)
+  
+  #add y-axis so all tickmarks and choose which labels
+  axis(2,at=axTicks(2),labels=rep("",length(axTicks(2))),cex.axis=yaxisSize,font=1)#all tick marks
+  axis(2,at=axTicks(2)[seq(from=0,to=length(axTicks(2)),by=2)],labels=axTicks(2)[seq(from=0,to=length(axTicks(2)),by=2)],cex.axis=yaxisSize,font=1)#every other label
+  #axis(2,at=axTicks(2)[c(1,length(axTicks)-1)],labels=axTicks(2)[c(1,length(axTicks)-1)],cex.axis=yaxisSize,font=2)#only first and last
+  
+  
+  par(xpd=TRUE)
+legend("topleft", legend = c(paste0(ind.data[ind.data$Species == animalname1, "Common"][1]," n=",length(animal1)), paste0(ind.data[ind.data$Species == animalname2, "Common"][1]," n=",length(animal2))), bty="n", pt.lwd=0.7,seg.len=5, col=c("black", "blue"), lty=c(1,2), cex=legendSize, text.font=1, y.intersp=2,inset=c(0,-0.1), ncol=2,lwd=3, text.width=c(0.5+strwidth(paste0(ind.data[ind.data$Species == animalname1, "Common"][1]," n=",length(animal1)),units="user", cex=legendSize)))
+  
+  overlapText <- paste0("=",sprintf("%.2f",round(overlapEst(animal1, animal2, adjust=c(0.8, NA, NA))[1],2)))
+  
+  mtext(expression(Delta), side=3,adj=1,cex=textSize, font=1,at=24-strwidth(overlapText,units="user", cex=textSize))#21.1
+  mtext(paste0(overlapText),side=3,adj=1,cex=textSize, font=1,at=24)
+  
+  dev.off()
+}
+plotDensity <- function(animalname1, animal1) {
+  par(ps=40, lwd=1.5, mar=c(6.5,8.5,5,2), cex.axis=0.7, mgp=c(5,1.5,0))#3rd 3
+  densityPlotCustom(
+    animal1
+    ,main=""
+    ,xlab="Time of Day"
+    ,ylab="Temporal Density"
+    ,rug=TRUE
+    ,xaxt="n"#remove axis labels so rewrite with custom
+    ,yaxt="n"#remove axis labels so rewrite with custom
+  )
+  #add x-axis so labels within boundaries of plot and spaced
+  axis(1, at=c(0), labels=c("midnight"), cex.axis=xaxisSize, font=1, hadj=0) 
+  axis(1, at=c(6, 12, 18), labels=c("      sunrise", "noon", "sunset      "), cex.axis=xaxisSize, font=1, hadj=0.5) 
+  axis(1, at=c(24), labels=c("midnight"), cex.axis=xaxisSize, font=1, hadj=1)
+  
+  #add y-axis so all tickmarks and choose which labels
+  axis(2,at=axTicks(2),labels=rep("",length(axTicks(2))),cex.axis=yaxisSize,font=1)#all tick marks
+  axis(2,at=axTicks(2)[seq(from=0,to=length(axTicks(2)),by=2)],labels=axTicks(2)[seq(from=0,to=length(axTicks(2)),by=2)],cex.axis=yaxisSize,font=1)#every other label
+  #axis(2,at=axTicks(2)[c(1,length(axTicks)-1)],labels=axTicks(2)[c(1,length(axTicks)-1)],cex.axis=yaxisSize,font=2)#only first and last
+  mtext(paste(ind.data[ind.data$Species == animalname1, "Common"][1]," n=",length(animal1)),3,cex=textSize, adj=0,font=2)
+  
+  dev.off()
+}
+
+
+
+
+```
+
+#overall function to be changed as needed (select which statistics by commenting out the statistics function call and the related variable in the data frame creation (starting line 341))
+```{r Overall Function}
+#pair is a pair of species for comparing, best if used within an apply function acting on a dataframe by row of pairs of species
+overall<-function(pair, numboot){
+  animalname1<-pair[1] #pulling out the first species names
+  animalname2<-pair[2] #pulling out second species name
+  animal1 <- ind.data[ind.data$Species == animalname1,"sunRad"]
+  animal2 <- ind.data[ind.data$Species == animalname2,"sunRad"]
+  
+  
+  n1<<-length(animal1)
+  n2<<-length(animal2)
+  
+  
+  #calls functions for statistics
+  CI<-overlapCI(animal1,animal2, numboot)#run overlap and confidence interval 
+  
+  Watson2<-watson2test(animal1, animal2) #runs watson test
+  
+  W<-w.prob(animal1,animal2, numboot) #runs w test
+  
+  Chi2Pvalue<- chisquared(animal1,animal2) #runs chisquare test
+  
+  filename <- paste0(animalname1, " and ", animalname2, ".jpg") #can personalize filename to match your file location. Currently saving into working directory
+  jpeg(file = filename, width=10000, height=6000, res=800)#9200,6200
+  plotOverlap(animalname1, animalname2, animal1, animal2)
+  
+  
+  statistics <- #combines all statistics into a dataframe. Comment out statistics that were not run
+    data.frame(
+      n1,
+      n2
+      ,CI
+      ,Watson2
+      ,W
+      ,Chi2Pvalue
+    )
+  print(paste(animalname1, " and ", animalname2))
+  return(statistics)
+}
+
+```
+
+#import and clean dataset
+```{r Clean Data}
+#Clean data
+ind.data <- read.csv("~/College/Mooring Research/2019/Data Files/Cleaned Wild ID 0713.csv")
+
+ind.data <- ind.data %>% filter(Independent == "Yes") #subset for only independent observations
+
+#check to see if need to run posix since ran it in the cleaning code
+ind.data$Date <- as.POSIXct(ind.data$Date, format="%m/%d/%Y", tz="America/Costa_Rica") #sets to posix format for sunTime function with timezone set to Costa Rica
+
+#Manually calculate sunrise and sunset to make sure that the time zone is set correctly for the sunTime function (originally there were issues so if sunrise/set not correct, set your computer to the correct time zone. Will need to restart R to apply computer settings)
+#ind.data["sunrise"] <- maptools::sunriset(sp::SpatialPoints(matrix(c(ind.data$Longitude,ind.data$Latitude),ncol=2), proj4string=sp::CRS("+proj=longlat +datum=WGS84")), ind.data$Date, direct = "sunrise", POSIXct.out=TRUE)$time
+#ind.data["sunset"] <- maptools::sunriset(sp::SpatialPoints(matrix(c(ind.data$Longitude,ind.data$Latitude),ncol=2), proj=sp::CRS("+proj=longlat +datum=WGS84")), ind.data$Date, direct = "sunset", POSIXct.out=TRUE)$time
+
+
+ind.data["sunRad"] <- sunTime(ind.data$Time.In.Radians, ind.data$Date, sp::SpatialPoints(matrix(c(ind.data$Longitude,ind.data$Latitude),ncol=2), proj=sp::CRS("+proj=longlat +datum=WGS84"))) #calculates time in radians for time of day using individual coordinates to find exact sunrise and sunset
+
+
+
+```
+
+#Create pairs to run statistics on
+```{r}
+nametable <- table(ind.data$Species)
+nametable <- nametable[nametable > 10]
+namelist <- names(table(ind.data$Species)) #Creates table of species names and frequencies
+namelist <- namelist[namelist != "Homo sapiens"] #removes "human" entry so not double paired (human-human)
+pairs <- cbind(rep("Homo sapiens", each = length(namelist)), namelist) #creates pairs combining human with each species
+
+```
+
+##Run statistics in apply function
+```{r}
+#variables needed for overlap and plots
+yaxisSize <- 0.7 #cex size for x axis labels
+yaxisSize <- 0.7 #cex size for y axis labels
+textSize <- 0.7 #cex size for coefficient text
+legendSize <- 0.7 #cex size for legend
+numboot <- 10 #number of replications for confidence intervals and W stat
+
+#Overall statistic function run on all pairs----
+statistics<-rbindlist(apply(pairs, 1, function(pair) #runs the overlap coefficient, related statistics and plots on all pairs. Pairs is a dataframe with two columns (animal1 and animal2). The apply function runs by row, each row of two animals sent to the overall function as "pair"
+{
+  overall(pair, numboot)
+}
+)
+)
+
+```
+
