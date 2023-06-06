@@ -34,6 +34,7 @@ baird.raw<- read.csv("all Tapir's data/Costa Rica (Baird Tapir)/Master(5.31.22).
 
 baird.raw<- na.omit(baird.raw)
 
+baird.raw <- baird.raw[baird.raw$Species == "Tapirus bairdii" , ]
 #grabs rows for where independent is "Yes" or "YES"
 baird.raw<- baird.raw[(baird.raw$Independent == "Yes") | (baird.raw$Independent == "YES"),]
 #pull out neccessary columns for each df
@@ -48,7 +49,7 @@ baird<-data.frame(
 
 
 
-baird<- baird[baird$species == "Tapirus bairdii" , ]
+
 
 {
 #check if df headers match requirments (date, species, hour, lat, lon)

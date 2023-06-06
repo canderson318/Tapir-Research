@@ -25,11 +25,11 @@ require("lubridate")
 require("astroFns")
 
 
-setwd("C:/Users/chris/Documents/Research/all Tapir's data/Costa Rica (Baird_s Tapir)")
+setwd("C:/Users/chris/Documents/Research/Tapir Research/Code and Data")
 
 #dataframe needs"lat", "lon", "date" (Y-M-D), and "hour" (H:M) column headers
 #the function wants a 'species' column to work
-df<- read.csv("Master(5.31.22).csv")
+df<- read.csv("all Tapir's data/Costa Rica (Baird Tapir)/Master(5.31.22).csv")
 
 #remove rows with nas
 df<- na.omit(df)
