@@ -1,0 +1,50 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+```{r}
+library(aod)
+library(ggplot2)
+```
+
+
+```{r}
+#practice with logit function on data
+#Christian Anderson 6-7-2023
+rm(list = ls())
+mydata <- read.csv("https://stats.idre.ucla.edu/stat/data/binary.csv")
+head(mydata)
+
+
+```
+
+```{r}
+summary(mydata)
+```
+
+```{r}
+sapply(mydata, sd)
+```
+
+```{r}
+xtabs(~admit + rank, data = mydata)
+```
+```{r}
+mydata$rank <- factor(mydata$rank)
+mylogit <- glm(admit ~ gre + gpa + rank, data = mydata, family = "binomial")
+summary(mylogit)
+```
+```{r}
+confint.default(mylogit)
+```
+
+```{r}
+x<- c(1:26)
+y<- c(1:26)
+df<- data.frame(x, y)
+df["species"]<- rep(NA, length(x))
+
+df$species[1:4]<- "bairds"
+
+```
+

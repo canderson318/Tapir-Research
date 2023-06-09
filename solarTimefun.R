@@ -26,9 +26,12 @@ set.rad<- set.ratio * 2 * pi#radian time of darkness at end of day
 times<- c("03:15:00", "16:22:00", "23:44:00", "12:00:00")
 
 
-times<- hms2rad(format(times, format = "%H:%M"))
+times.rad<- hms2rad(format(times, format = "%H:%M"))
 
+time<- cbind(times, times.rad)
 
+i=3
+solar.at3<- (((times.rad[i] - set.rad)/((2*pi) - set.rad))*(1/2)*pi) + ((3/2)*pi)
 
 clockTime <- df[["hour.rad"]]
 solar <- rep(NA, times = length(clockTime))
