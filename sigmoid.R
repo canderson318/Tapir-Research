@@ -1,15 +1,12 @@
+rm(list= ls())
 library(ggplot2)
-x<- sample(seq(1, 10, length.out= 2000), 100, replace = TRUE)
-y<- sample(seq(1, 2000, length.out=2000), 100, replace = TRUE)
 
-x<- sample()
+x<- sample(seq(1, 15, length.out= 200), 100, replace = TRUE)
+f<- function(x){r<- x+x^2; r}
 
-f<- function(x){r<- 1/(1-exp(1)^x); r}
-
-ggplot(NULL, aes(x,f(y)))+
-geom_point()+
-geom_smooth()
-
+ggplot(NULL, aes(x= scale(x)))+
+  geom_smooth(aes(y= f(x)), color= "red")+
+  geom_smooth(aes(y= x), color = "green")
 speed<- seq(10,200, length.out= 20)
 weight<- seq(5, 1, length.out= 20)
 lm<- lm(speed~weight)
