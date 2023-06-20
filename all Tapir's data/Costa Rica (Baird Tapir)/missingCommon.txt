@@ -1,0 +1,115 @@
+                  Species                Survey.Name Individuals Independent  Site Trail Camera.Name Paired
+198629 Leopardus tigrinus Kamuk 2021 (July-February)           1        <NA> Kamuk Kamuk           8   <NA>
+198630 Leopardus tigrinus Kamuk 2021 (July-February)           1        <NA> Kamuk Kamuk           3   <NA>
+198631 Leopardus tigrinus    Kamuk 2021 (March-July)           1        <NA> Kamuk Kamuk        K02b   <NA>
+198632 Leopardus tigrinus Kamuk 2021 (July-February)           1        <NA> Kamuk Kamuk          11   <NA>
+198633 Leopardus tigrinus    Kamuk 2021 (March-July)           1        <NA> Kamuk Kamuk         K07   <NA>
+198634 Leopardus tigrinus    Kamuk 2021 (March-July)           1        <NA> Kamuk Kamuk        K02a   <NA>
+198635 Leopardus tigrinus Kamuk 2021 (July-February)           1        <NA> Kamuk Kamuk          11   <NA>
+198636 Leopardus tigrinus    Kamuk 2021 (March-July)           1        <NA> Kamuk Kamuk        K02a   <NA>
+198637 Leopardus tigrinus    Kamuk 2021 (March-July)           1        <NA> Kamuk Kamuk        K02a   <NA>
+198638 Leopardus tigrinus    Kamuk 2021 (March-July)           1        <NA> Kamuk Kamuk        K02b   <NA>
+198639 Leopardus tigrinus Kamuk 2021 (July-February)           1        <NA> Kamuk Kamuk           3   <NA>
+198640 Leopardus tigrinus    Kamuk 2021 (March-July)           1        <NA> Kamuk Kamuk        K02b   <NA>
+198641 Leopardus tigrinus    Kamuk 2021 (March-July)           1        <NA> Kamuk Kamuk        K02a   <NA>
+198642 Leopardus tigrinus    Kamuk 2021 (March-July)           1        <NA> Kamuk Kamuk        K02b   <NA>
+198643 Leopardus tigrinus    Kamuk 2021 (March-July)           1        <NA> Kamuk Kamuk        K02b   <NA>
+198644 Leopardus tigrinus    Kamuk 2021 (March-July)           1        <NA> Kamuk Kamuk        K02b   <NA>
+198645 Leopardus tigrinus    Kamuk 2021 (March-July)           1        <NA> Kamuk Kamuk        K02b   <NA>
+198646 Leopardus tigrinus    Kamuk 2021 (March-July)           1        <NA> Kamuk Kamuk        K02b   <NA>
+198647 Leopardus tigrinus Kamuk 2021 (July-February)           1        <NA> Kamuk Kamuk           3   <NA>
+198648 Leopardus tigrinus    Kamuk 2021 (March-July)           1        <NA> Kamuk Kamuk        K02b   <NA>
+198649 Leopardus tigrinus Kamuk 2021 (July-February)           1        <NA> Kamuk Kamuk           8   <NA>
+198650 Leopardus tigrinus    Kamuk 2021 (March-July)           1        <NA> Kamuk Kamuk         K04   <NA>
+198651 Leopardus tigrinus    Kamuk 2021 (March-July)           1        <NA> Kamuk Kamuk        K02a   <NA>
+198652 Leopardus tigrinus    Kamuk 2021 (March-July)           1        <NA> Kamuk Kamuk        K02a   <NA>
+198653 Leopardus tigrinus    Kamuk 2021 (March-July)           1        <NA> Kamuk Kamuk        K02a   <NA>
+198654 Leopardus tigrinus Kamuk 2021 (July-February)           1        <NA> Kamuk Kamuk           8   <NA>
+198655 Leopardus tigrinus Kamuk 2021 (July-February)           1        <NA> Kamuk Kamuk           3   <NA>
+198656 Leopardus tigrinus Kamuk 2021 (July-February)           1        <NA> Kamuk Kamuk           3   <NA>
+198657 Leopardus tigrinus    Kamuk 2021 (March-July)           1        <NA> Kamuk Kamuk        K02b   <NA>
+198658 Leopardus tigrinus Kamuk 2021 (July-February)           1        <NA> Kamuk Kamuk           5   <NA>
+198659 Leopardus tigrinus Kamuk 2021 (July-February)           1        <NA> Kamuk Kamuk           3   <NA>
+198660 Leopardus tigrinus    Kamuk 2021 (March-July)           1        <NA> Kamuk Kamuk        K02a   <NA>
+198661 Leopardus tigrinus    Kamuk 2021 (March-July)           1        <NA> Kamuk Kamuk        K02b   <NA>
+198662 Leopardus tigrinus    Kamuk 2021 (March-July)           1        <NA> Kamuk Kamuk        K02b   <NA>
+198663 Leopardus tigrinus Kamuk 2021 (July-February)           1        <NA> Kamuk Kamuk           7   <NA>
+198664 Leopardus tigrinus Kamuk 2021 (July-February)           1        <NA> Kamuk Kamuk           3   <NA>
+198665 Leopardus tigrinus    Kamuk 2021 (March-July)           1        <NA> Kamuk Kamuk        K02b   <NA>
+       Latitude Longitude  X  Y Elevation Elevation.Num                       Habitat Season Camera.Start.Date
+198629 9.125957 -83.05896 NA NA      <NA>            NA Tropical Montane Cloud Forest    Dry        2022-01-15
+198630 9.156170 -83.06527 NA NA      <NA>            NA Tropical Montane Cloud Forest    Wet        2021-07-19
+198631 9.158830 -83.06502 NA NA      <NA>            NA Tropical Montane Cloud Forest    Dry        2021-03-08
+198632 9.237136 -83.07323 NA NA      <NA>            NA Tropical Montane Cloud Forest    Dry        2021-12-23
+198633 9.246410 -83.07299 NA NA      <NA>            NA Tropical Montane Cloud Forest    Dry        2021-03-09
+198634 9.158830 -83.06502 NA NA      <NA>            NA Tropical Montane Cloud Forest    Dry        2021-03-08
+198635 9.237136 -83.07323 NA NA      <NA>            NA Tropical Montane Cloud Forest    Dry        2021-12-23
+198636 9.158830 -83.06502 NA NA      <NA>            NA Tropical Montane Cloud Forest    Dry        2021-03-08
+198637 9.158830 -83.06502 NA NA      <NA>            NA Tropical Montane Cloud Forest    Dry        2021-03-08
+198638 9.158830 -83.06502 NA NA      <NA>            NA Tropical Montane Cloud Forest    Dry        2021-03-08
+198639 9.156170 -83.06527 NA NA      <NA>            NA Tropical Montane Cloud Forest    Dry        2021-07-19
+198640 9.158830 -83.06502 NA NA      <NA>            NA Tropical Montane Cloud Forest    Dry        2021-03-08
+198641 9.158830 -83.06502 NA NA      <NA>            NA Tropical Montane Cloud Forest    Dry        2021-03-08
+198642 9.158830 -83.06502 NA NA      <NA>            NA Tropical Montane Cloud Forest    Dry        2021-03-08
+198643 9.158830 -83.06502 NA NA      <NA>            NA Tropical Montane Cloud Forest    Dry        2021-03-08
+198644 9.158830 -83.06502 NA NA      <NA>            NA Tropical Montane Cloud Forest    Dry        2021-03-08
+198645 9.158830 -83.06502 NA NA      <NA>            NA Tropical Montane Cloud Forest    Dry        2021-03-08
+198646 9.158830 -83.06502 NA NA      <NA>            NA Tropical Montane Cloud Forest    Dry        2021-03-08
+198647 9.156170 -83.06527 NA NA      <NA>            NA Tropical Montane Cloud Forest    Wet        2021-07-19
+198648 9.158830 -83.06502 NA NA      <NA>            NA Tropical Montane Cloud Forest    Dry        2021-03-08
+198649 9.125957 -83.05896 NA NA      <NA>            NA Tropical Montane Cloud Forest    Dry        2022-01-15
+198650 9.189990 -83.06283 NA NA      <NA>            NA Tropical Montane Cloud Forest    Dry        2021-03-08
+198651 9.158830 -83.06502 NA NA      <NA>            NA Tropical Montane Cloud Forest    Dry        2021-03-08
+198652 9.158830 -83.06502 NA NA      <NA>            NA Tropical Montane Cloud Forest    Dry        2021-03-08
+198653 9.158830 -83.06502 NA NA      <NA>            NA Tropical Montane Cloud Forest    Dry        2021-03-08
+198654 9.125957 -83.05896 NA NA      <NA>            NA Tropical Montane Cloud Forest    Dry        2022-01-15
+198655 9.156170 -83.06527 NA NA      <NA>            NA Tropical Montane Cloud Forest    Dry        2021-07-19
+198656 9.156170 -83.06527 NA NA      <NA>            NA Tropical Montane Cloud Forest    Dry        2021-07-19
+198657 9.158830 -83.06502 NA NA      <NA>            NA Tropical Montane Cloud Forest    Dry        2021-03-08
+198658 9.178902 -83.06584 NA NA      <NA>            NA Tropical Montane Cloud Forest    Dry        2021-12-13
+198659 9.156170 -83.06527 NA NA      <NA>            NA Tropical Montane Cloud Forest    Wet        2021-07-19
+198660 9.158830 -83.06502 NA NA      <NA>            NA Tropical Montane Cloud Forest    Dry        2021-03-08
+198661 9.158830 -83.06502 NA NA      <NA>            NA Tropical Montane Cloud Forest    Dry        2021-03-08
+198662 9.158830 -83.06502 NA NA      <NA>            NA Tropical Montane Cloud Forest    Dry        2021-03-08
+198663 9.199912 -83.05849 NA NA      <NA>            NA Tropical Montane Cloud Forest    Dry        2021-12-13
+198664 9.156170 -83.06527 NA NA      <NA>            NA Tropical Montane Cloud Forest    Wet        2021-07-19
+198665 9.158830 -83.06502 NA NA      <NA>            NA Tropical Montane Cloud Forest    Dry        2021-03-08
+       Camera.End.Date       Date     Time Hour Minute Time.In.Radians Daytime     Image.ID Common.x Common.y
+198629      2022-02-19 2022-02-03 16:54:46   NA     NA              NA      NA 02030945.JPG     <NA>  Oncilla
+198630      2021-12-13 2021-10-04 03:25:40   NA     NA              NA      NA 10040394.JPG     <NA>  Oncilla
+198631      2021-07-19 2021-04-24 04:38:18   NA     NA              NA      NA 04240172.JPG     <NA>  Oncilla
+198632      2022-02-19 2022-01-22 20:12:40   NA     NA              NA      NA 01220417.JPG     <NA>  Oncilla
+198633      2021-07-21 2021-05-30 12:22:08   NA     NA              NA      NA 05300019.JPG     <NA>  Oncilla
+198634      2021-07-17 2021-04-24 04:32:00   NA     NA              NA      NA 04240808.JPG     <NA>  Oncilla
+198635      2022-02-19 2022-01-22 20:12:42   NA     NA              NA      NA 01220418.JPG     <NA>  Oncilla
+198636      2021-07-17 2021-04-09 04:25:25   NA     NA              NA      NA 04090506.JPG     <NA>  Oncilla
+198637      2021-07-17 2021-04-09 04:25:24   NA     NA              NA      NA 04090505.JPG     <NA>  Oncilla
+198638      2021-07-19 2021-04-24 04:38:19   NA     NA              NA      NA 04240173.JPG     <NA>  Oncilla
+198639      2021-12-13 2021-11-12 04:04:28   NA     NA              NA      NA 11120519.JPG     <NA>  Oncilla
+198640      2021-07-19 2021-03-17 04:16:15   NA     NA              NA      NA 03170267.JPG     <NA>  Oncilla
+198641      2021-07-17 2021-04-24 04:32:01   NA     NA              NA      NA 04240809.JPG     <NA>  Oncilla
+198642      2021-07-19 2021-04-24 04:38:20   NA     NA              NA      NA 04240174.JPG     <NA>  Oncilla
+198643      2021-07-19 2021-03-17 04:16:16   NA     NA              NA      NA 03170269.JPG     <NA>  Oncilla
+198644      2021-07-19 2021-04-08 04:02:18   NA     NA              NA      NA 04080730.JPG     <NA>  Oncilla
+198645      2021-07-19 2021-04-24 04:38:21   NA     NA              NA      NA 04240176.JPG     <NA>  Oncilla
+198646      2021-07-19 2021-04-24 04:38:22   NA     NA              NA      NA 04240177.JPG     <NA>  Oncilla
+198647      2021-12-13 2021-10-07 21:40:51   NA     NA              NA      NA 10070453.JPG     <NA>  Oncilla
+198648      2021-07-19 2021-03-17 04:16:14   NA     NA              NA      NA 03170265.JPG     <NA>  Oncilla
+198649      2022-02-19 2022-02-03 16:54:46   NA     NA              NA      NA 02030946.JPG     <NA>  Oncilla
+198650      2021-07-20 2021-05-11 23:34:45   NA     NA              NA      NA 05110427.JPG     <NA>  Oncilla
+198651      2021-07-17 2021-04-08 03:57:00   NA     NA              NA      NA 04080500.JPG     <NA>  Oncilla
+198652      2021-07-17 2021-04-08 03:57:01   NA     NA              NA      NA 04080501.JPG     <NA>  Oncilla
+198653      2021-07-17 2021-04-24 04:32:02   NA     NA              NA      NA 04240810.JPG     <NA>  Oncilla
+198654      2022-02-19 2022-02-03 16:54:47   NA     NA              NA      NA 02030947.JPG     <NA>  Oncilla
+198655      2021-12-13 2021-11-12 04:04:26   NA     NA              NA      NA 11120518.JPG     <NA>  Oncilla
+198656      2021-12-13 2021-12-01 21:21:34   NA     NA              NA      NA 12010690.JPG     <NA>  Oncilla
+198657      2021-07-19 2021-04-08 04:02:16   NA     NA              NA      NA 04080727.JPG     <NA>  Oncilla
+198658      2021-12-31 2021-12-24 20:10:20   NA     NA              NA      NA 12240075.JPG     <NA>  Oncilla
+198659      2021-12-13 2021-08-16 02:52:06   NA     NA              NA      NA 08160244.JPG     <NA>  Oncilla
+198660      2021-07-17 2021-04-08 03:56:59   NA     NA              NA      NA 04080499.JPG     <NA>  Oncilla
+198661      2021-07-19 2021-03-17 04:16:14   NA     NA              NA      NA 03170266.JPG     <NA>  Oncilla
+198662      2021-07-19 2021-03-17 04:16:12   NA     NA              NA      NA 03170264.JPG     <NA>  Oncilla
+198663      2022-02-19 2022-02-12 01:54:56   NA     NA              NA      NA 02120643.JPG     <NA>  Oncilla
+198664      2021-12-13 2021-10-04 03:25:38   NA     NA              NA      NA 10040393.JPG     <NA>  Oncilla
+198665      2021-07-19 2021-04-08 04:02:17   NA     NA              NA      NA 04080729.JPG     <NA>  Oncilla
+ [ reached 'max' / getOption("max.print") -- omitted 512 rows ]
