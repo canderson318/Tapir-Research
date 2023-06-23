@@ -3,7 +3,7 @@
 #df must have a column for hour ("hourRad" -- in RADIANS) and columns for Longitude and Latitude, respectively
 
 #Issues with previous version: 
-  ##date() depricated, use as.Date; force_tz needs time not hour = time and use force_tzs instead; 
+  ##date() sometimes doesn't work, use as.Date; force_tz needs time arg not hour = time and use force_tzs instead;
   ##use hms2rad instead of gross math
 #-------------------------------------------------------------------------------------
 
