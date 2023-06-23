@@ -1,0 +1,698 @@
+An object of class "unmarkedFitList"
+Slot "fits":
+$mod0
+
+Call:
+occu(formula = ~1 ~ 1, data = umf)
+
+Occupancy:
+ Estimate    SE     z P(>|z|)
+   -0.573 0.242 -2.37  0.0179
+
+Detection:
+ Estimate    SE     z  P(>|z|)
+    -1.55 0.133 -11.7 1.68e-31
+
+AIC: 526.4525 
+
+$m.pEff.psiPrec
+
+Call:
+occu(formula = ~Eff ~ Precip, data = umf)
+
+Occupancy:
+            Estimate    SE      z P(>|z|)
+(Intercept)  -0.5655 0.242 -2.335  0.0195
+Precip        0.0271 0.245  0.111  0.9118
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.960 2.141 -2.32  0.0205
+Eff            0.495 0.308  1.61  0.1075
+
+AIC: 525.8103 
+
+$m.pEff.psiElev
+
+Call:
+occu(formula = ~Eff ~ Elev, data = umf)
+
+Occupancy:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -0.560 0.246 -2.28  0.0228
+Elev           0.306 0.250  1.22  0.2216
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.978 2.138 -2.33  0.0199
+Eff            0.497 0.307  1.62  0.1056
+
+AIC: 524.2974 
+
+$mod.eff.road
+
+Call:
+occu(formula = ~Eff ~ d.Road, data = umf)
+
+Occupancy:
+            Estimate    SE      z P(>|z|)
+(Intercept)  -0.5661 0.242 -2.337  0.0195
+d.Road       -0.0644 0.246 -0.262  0.7934
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.960 2.141 -2.32  0.0205
+Eff            0.495 0.308  1.61  0.1075
+
+AIC: 525.754 
+
+$m.psiTempmax.pEff
+
+Call:
+occu(formula = ~Eff ~ AvgMaxTemp, data = umf)
+
+Occupancy:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -0.567 0.248 -2.29   0.022
+AvgMaxTemp    -0.395 0.253 -1.56   0.119
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.976 2.137 -2.33  0.0199
+Eff            0.497 0.307  1.62  0.1056
+
+AIC: 523.297 
+
+$m.psiNDVI.pEff
+
+Call:
+occu(formula = ~Eff ~ NDVI, data = umf)
+
+Occupancy:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -0.557 0.245 -2.27   0.023
+NDVI          -0.261 0.249 -1.05   0.295
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.976 2.138 -2.33  0.0199
+Eff            0.497 0.307  1.62  0.1057
+
+AIC: 524.7064 
+
+
+An object of class "unmarkedFitList"
+Slot "fits":
+$mod0
+
+Call:
+occu(formula = ~1 ~ 1, data = umf)
+
+Occupancy:
+ Estimate    SE     z P(>|z|)
+   -0.573 0.242 -2.37  0.0179
+
+Detection:
+ Estimate    SE     z  P(>|z|)
+    -1.55 0.133 -11.7 1.68e-31
+
+AIC: 526.4525 
+
+$m.pEff.psiPrec
+
+Call:
+occu(formula = ~Eff ~ Precip, data = umf)
+
+Occupancy:
+            Estimate    SE      z P(>|z|)
+(Intercept)  -0.5655 0.242 -2.335  0.0195
+Precip        0.0271 0.245  0.111  0.9118
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.960 2.141 -2.32  0.0205
+Eff            0.495 0.308  1.61  0.1075
+
+AIC: 525.8103 
+
+$m.pEff.psiElev
+
+Call:
+occu(formula = ~Eff ~ Elev, data = umf)
+
+Occupancy:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -0.560 0.246 -2.28  0.0228
+Elev           0.306 0.250  1.22  0.2216
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.978 2.138 -2.33  0.0199
+Eff            0.497 0.307  1.62  0.1056
+
+AIC: 524.2974 
+
+$mod.eff.road
+
+Call:
+occu(formula = ~Eff ~ d.Road, data = umf)
+
+Occupancy:
+            Estimate    SE      z P(>|z|)
+(Intercept)  -0.5661 0.242 -2.337  0.0195
+d.Road       -0.0644 0.246 -0.262  0.7934
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.960 2.141 -2.32  0.0205
+Eff            0.495 0.308  1.61  0.1075
+
+AIC: 525.754 
+
+$m.psiTempmax.pEff
+
+Call:
+occu(formula = ~Eff ~ AvgMaxTemp, data = umf)
+
+Occupancy:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -0.567 0.248 -2.29   0.022
+AvgMaxTemp    -0.395 0.253 -1.56   0.119
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.976 2.137 -2.33  0.0199
+Eff            0.497 0.307  1.62  0.1056
+
+AIC: 523.297 
+
+$m.psiNDVI.pEff
+
+Call:
+occu(formula = ~Eff ~ NDVI, data = umf)
+
+Occupancy:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -0.557 0.245 -2.27   0.023
+NDVI          -0.261 0.249 -1.05   0.295
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.976 2.138 -2.33  0.0199
+Eff            0.497 0.307  1.62  0.1057
+
+AIC: 524.7064 
+
+$m.psiElevNDVI.pEff
+
+Call:
+occu(formula = ~Eff ~ Elev + NDVI, data = umf)
+
+Occupancy:
+            Estimate    SE      z P(>|z|)
+(Intercept)  -0.5588 0.246 -2.271  0.0232
+Elev          0.2781 0.432  0.644  0.5198
+NDVI         -0.0339 0.430 -0.079  0.9370
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.979 2.138 -2.33  0.0199
+Eff            0.497 0.307  1.62  0.1055
+
+AIC: 526.2911 
+
+$m.psiElevMaxTemp.pEff
+
+Call:
+occu(formula = ~Eff ~ Elev + AvgMaxTemp, data = umf)
+
+Occupancy:
+            Estimate    SE      z P(>|z|)
+(Intercept)   -0.570 0.248 -2.298  0.0216
+Elev          -0.104 0.471 -0.222  0.8245
+AvgMaxTemp    -0.484 0.478 -1.014  0.3104
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.975 2.138 -2.33  0.0199
+Eff            0.497 0.307  1.62  0.1057
+
+AIC: 525.2478 
+
+$m.psiNDVIMaxTemp.pEff
+
+Call:
+occu(formula = ~Eff ~ NDVI + AvgMaxTemp, data = umf)
+
+Occupancy:
+            Estimate    SE      z P(>|z|)
+(Intercept)  -0.5706 0.248 -2.300  0.0215
+NDVI          0.0839 0.377  0.222  0.8240
+AvgMaxTemp   -0.4589 0.384 -1.194  0.2324
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.973 2.137 -2.33   0.020
+Eff            0.497 0.307  1.62   0.106
+
+AIC: 525.2475 
+
+$m.psiElevPrecip.pEff
+
+Call:
+occu(formula = ~Eff ~ Elev + Precip, data = umf)
+
+Occupancy:
+            Estimate    SE      z P(>|z|)
+(Intercept)  -0.5624 0.246 -2.285  0.0223
+Elev          0.3165 0.254  1.245  0.2130
+Precip        0.0693 0.252  0.275  0.7834
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.973 2.136 -2.33  0.0199
+Eff            0.497 0.307  1.62  0.1057
+
+AIC: 526.221 
+
+$m.psiElevRoad.pEff
+
+Call:
+occu(formula = ~Eff ~ Elev + d.Road, data = umf)
+
+Occupancy:
+            Estimate    SE      z P(>|z|)
+(Intercept)   -0.563 0.248 -2.271  0.0232
+Elev           0.443 0.293  1.509  0.1312
+d.Road        -0.275 0.286 -0.961  0.3364
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.986 2.138 -2.33  0.0197
+Eff            0.498 0.307  1.62  0.1050
+
+AIC: 525.3527 
+
+$m.psiAvgMaxTempPrecip.pEff
+
+Call:
+occu(formula = ~Eff ~ AvgMaxTemp + Precip, data = umf)
+
+Occupancy:
+            Estimate    SE      z P(>|z|)
+(Intercept)   -0.575 0.249 -2.310  0.0209
+AvgMaxTemp    -0.457 0.274 -1.667  0.0955
+Precip         0.178 0.272  0.656  0.5116
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.978 2.138 -2.33  0.0199
+Eff            0.497 0.307  1.62  0.1055
+
+AIC: 524.8567 
+
+$m.psiAvgMaxTempRoad.pEff
+
+Call:
+occu(formula = ~Eff ~ AvgMaxTemp + d.Road, data = umf)
+
+Occupancy:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -0.576 0.253 -2.28  0.0225
+AvgMaxTemp    -0.666 0.323 -2.06  0.0394
+d.Road        -0.451 0.315 -1.43  0.1519
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.987 2.138 -2.33  0.0197
+Eff            0.498 0.307  1.62  0.1050
+
+AIC: 523.1627 
+
+$m.psiPrecipRoad.pEff
+
+Call:
+occu(formula = ~Eff ~ Precip + d.Road, data = umf)
+
+Occupancy:
+            Estimate    SE       z P(>|z|)
+(Intercept) -0.56627 0.242 -2.3372  0.0194
+Precip       0.00961 0.255  0.0376  0.9700
+d.Road      -0.06157 0.256 -0.2400  0.8103
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.960 2.141 -2.32  0.0205
+Eff            0.495 0.308  1.61  0.1075
+
+AIC: 527.7526 
+
+$m.psiPrecipNDVI.pEff
+
+Call:
+occu(formula = ~Eff ~ Precip + NDVI, data = umf)
+
+Occupancy:
+            Estimate    SE      z P(>|z|)
+(Intercept)   -0.559 0.246 -2.277  0.0228
+Precip         0.121 0.263  0.459  0.6463
+NDVI          -0.299 0.264 -1.134  0.2568
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.976 2.137 -2.33  0.0199
+Eff            0.497 0.307  1.62  0.1055
+
+AIC: 526.4948 
+
+$m.psiNDVIRoad.pEff
+
+Call:
+occu(formula = ~Eff ~ NDVI + d.Road, data = umf)
+
+Occupancy:
+            Estimate    SE      z P(>|z|)
+(Intercept)   -0.557 0.247 -2.252  0.0243
+NDVI          -0.411 0.304 -1.351  0.1767
+d.Road        -0.278 0.296 -0.938  0.3483
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.985 2.137 -2.33  0.0197
+Eff            0.498 0.307  1.62  0.1049
+
+AIC: 525.801 
+
+$m.psiElevTempmaxPrecip.pEff
+
+Call:
+occu(formula = ~Eff ~ Elev + AvgMaxTemp + Precip, data = umf)
+
+Occupancy:
+            Estimate    SE      z P(>|z|)
+(Intercept)   -0.581 0.250 -2.329  0.0199
+Elev          -0.207 0.493 -0.419  0.6753
+AvgMaxTemp    -0.646 0.530 -1.218  0.2232
+Precip         0.211 0.283  0.745  0.4565
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.972 2.137 -2.33   0.020
+Eff            0.497 0.307  1.62   0.106
+
+AIC: 526.6808 
+
+$m.psiElevTempmaxRoad.pEff
+
+Call:
+occu(formula = ~Eff ~ Elev + AvgMaxTemp + d.Road, data = umf)
+
+Occupancy:
+            Estimate    SE      z P(>|z|)
+(Intercept)   -0.579 0.253 -2.292  0.0219
+Elev          -0.133 0.483 -0.275  0.7836
+AvgMaxTemp    -0.781 0.534 -1.464  0.1432
+d.Road        -0.454 0.315 -1.441  0.1497
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.981 2.137 -2.33  0.0198
+Eff            0.498 0.307  1.62  0.1053
+
+AIC: 525.0872 
+
+$m.psiElevTempmaxNDVI.pEff
+
+Call:
+occu(formula = ~Eff ~ Elev + AvgMaxTemp + NDVI, data = umf)
+
+Occupancy:
+            Estimate    SE      z P(>|z|)
+(Intercept)  -0.5710 0.248 -2.301  0.0214
+Elev         -0.0685 0.551 -0.124  0.9011
+AvgMaxTemp   -0.4958 0.486 -1.021  0.3074
+NDVI          0.0552 0.442  0.125  0.9006
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.973 2.137 -2.33   0.020
+Eff            0.497 0.307  1.62   0.106
+
+AIC: 527.2321 
+
+$m.psiTempmaxPrecipRoad.pEff
+
+Call:
+occu(formula = ~Eff ~ AvgMaxTemp + Precip + d.Road, data = umf)
+
+Occupancy:
+            Estimate    SE      z P(>|z|)
+(Intercept)   -0.581 0.253 -2.294  0.0218
+AvgMaxTemp    -0.698 0.333 -2.094  0.0362
+Precip         0.127 0.278  0.456  0.6486
+d.Road        -0.430 0.318 -1.353  0.1762
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.984 2.136 -2.33  0.0197
+Eff            0.498 0.307  1.62  0.1050
+
+AIC: 524.9534 
+
+$m.psiAvgMaxTempPrecipNDVI.pEff
+
+Call:
+occu(formula = ~Eff ~ AvgMaxTemp + Precip + NDVI, data = umf)
+
+Occupancy:
+            Estimate    SE      z P(>|z|)
+(Intercept)  -0.5775 0.249 -2.316  0.0206
+AvgMaxTemp   -0.5013 0.395 -1.267  0.2050
+Precip        0.1743 0.273  0.638  0.5233
+NDVI          0.0588 0.381  0.154  0.8774
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.974 2.137 -2.33  0.0199
+Eff            0.497 0.307  1.62  0.1057
+
+AIC: 526.8329 
+
+$m.psiAvgMaxTempNDVIRoad.pEff
+
+Call:
+occu(formula = ~Eff ~ AvgMaxTemp + NDVI + d.Road, data = umf)
+
+Occupancy:
+             Estimate    SE        z P(>|z|)
+(Intercept) -0.576562 0.253 -2.27962  0.0226
+AvgMaxTemp  -0.665271 0.421 -1.57969  0.1142
+NDVI        -0.000754 0.393 -0.00192  0.9985
+d.Road      -0.451018 0.319 -1.41476  0.1571
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.984 2.137 -2.33  0.0197
+Eff            0.498 0.307  1.62  0.1050
+
+AIC: 525.1627 
+
+$m.psiPrecipRoadNDVI.pEff
+
+Call:
+occu(formula = ~Eff ~ Precip + d.Road + NDVI, data = umf)
+
+Occupancy:
+            Estimate    SE      z P(>|z|)
+(Intercept)   -0.558 0.248 -2.256  0.0241
+Precip         0.082 0.268  0.306  0.7596
+d.Road        -0.263 0.300 -0.878  0.3800
+NDVI          -0.430 0.310 -1.387  0.1655
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.987 2.137 -2.33  0.0196
+Eff            0.498 0.307  1.62  0.1048
+
+AIC: 527.7071 
+
+$m.psiPrecipElevNDVI.pEff
+
+Call:
+occu(formula = ~Eff ~ Precip + Elev + NDVI, data = umf)
+
+Occupancy:
+            Estimate    SE      z P(>|z|)
+(Intercept)  -0.5607 0.246 -2.276  0.0229
+Precip        0.0880 0.270  0.326  0.7447
+Elev          0.2471 0.444  0.557  0.5776
+NDVI         -0.0877 0.461 -0.190  0.8490
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.980 2.138 -2.33  0.0198
+Eff            0.498 0.307  1.62  0.1054
+
+AIC: 528.1847 
+
+$m.psiPrecipElevRoad.pEff
+
+Call:
+occu(formula = ~Eff ~ Precip + Elev + d.Road, data = umf)
+
+Occupancy:
+            Estimate    SE       z P(>|z|)
+(Intercept) -0.56325 0.248 -2.2693  0.0233
+Precip       0.00486 0.263  0.0184  0.9853
+Elev         0.44310 0.293  1.5107  0.1309
+d.Road      -0.27389 0.297 -0.9229  0.3561
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.985 2.137 -2.33  0.0197
+Eff            0.498 0.307  1.62  0.1051
+
+AIC: 527.3523 
+
+$m.psiRoadNDVIElev.pEff
+
+Call:
+occu(formula = ~Eff ~ d.Road + NDVI + Elev, data = umf)
+
+Occupancy:
+            Estimate    SE      z P(>|z|)
+(Intercept)   -0.560 0.249 -2.250  0.0244
+d.Road        -0.304 0.299 -1.015  0.3099
+NDVI          -0.157 0.453 -0.347  0.7284
+Elev           0.329 0.438  0.752  0.4520
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.989 2.137 -2.33  0.0196
+Eff            0.498 0.307  1.62  0.1047
+
+AIC: 527.2311 
+
+$m.psiTempElevNDVIRoad.pEff
+
+Call:
+occu(formula = ~Eff ~ AvgMaxTemp + Elev + NDVI + d.Road, data = umf)
+
+Occupancy:
+            Estimate    SE      z P(>|z|)
+(Intercept)  -0.5781 0.253 -2.284  0.0224
+AvgMaxTemp   -0.7722 0.537 -1.438  0.1504
+Elev         -0.1857 0.572 -0.324  0.7456
+NDVI         -0.0806 0.464 -0.174  0.8620
+d.Road       -0.4657 0.323 -1.444  0.1488
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.982 2.137 -2.33  0.0197
+Eff            0.498 0.307  1.62  0.1052
+
+AIC: 527.0569 
+
+$m.psiElevNDVIPrecipRoad.pEff
+
+Call:
+occu(formula = ~Eff ~ Elev + NDVI + Precip + d.Road, data = umf)
+
+Occupancy:
+            Estimate    SE      z P(>|z|)
+(Intercept)   -0.560 0.249 -2.252  0.0243
+Elev           0.316 0.451  0.701  0.4832
+NDVI          -0.176 0.474 -0.370  0.7110
+Precip         0.036 0.277  0.130  0.8967
+d.Road        -0.296 0.305 -0.972  0.3310
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.989 2.137 -2.33  0.0196
+Eff            0.498 0.307  1.62  0.1046
+
+AIC: 529.2143 
+
+$m.psiTempElevRoadPrecip.pEff
+
+Call:
+occu(formula = ~Eff ~ AvgMaxTemp + Elev + d.Road + Precip, data = umf)
+
+Occupancy:
+            Estimate    SE      z P(>|z|)
+(Intercept)   -0.586 0.254 -2.309  0.0209
+AvgMaxTemp    -0.887 0.573 -1.548  0.1216
+Elev          -0.208 0.504 -0.412  0.6803
+d.Road        -0.430 0.318 -1.350  0.1770
+Precip         0.158 0.289  0.548  0.5839
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.980 2.137 -2.33  0.0198
+Eff            0.497 0.307  1.62  0.1054
+
+AIC: 526.7829 
+
+$m.psiTempNDVIRoadPrecip.pEff
+
+Call:
+occu(formula = ~Eff ~ AvgMaxTemp + NDVI + d.Road + Precip, data = umf)
+
+Occupancy:
+            Estimate    SE       z P(>|z|)
+(Intercept)  -0.5809 0.254 -2.2893  0.0221
+AvgMaxTemp   -0.6878 0.428 -1.6084  0.1077
+NDVI         -0.0144 0.395 -0.0364  0.9710
+d.Road       -0.4316 0.321 -1.3440  0.1790
+Precip        0.1272 0.279  0.4564  0.6481
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.984 2.136 -2.33  0.0196
+Eff            0.498 0.307  1.62  0.1049
+
+AIC: 526.9521 
+
+$m.psiTempElevNDVIPrecip.pEff
+
+Call:
+occu(formula = ~Eff ~ AvgMaxTemp + Elev + NDVI + Precip, data = umf)
+
+Occupancy:
+            Estimate    SE      z P(>|z|)
+(Intercept)  -0.5803 0.250 -2.324  0.0201
+AvgMaxTemp   -0.6427 0.532 -1.209  0.2266
+Elev         -0.2426 0.603 -0.402  0.6874
+NDVI         -0.0487 0.465 -0.105  0.9167
+Precip        0.2198 0.296  0.743  0.4576
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.972 2.137 -2.33   0.020
+Eff            0.497 0.307  1.62   0.106
+
+AIC: 528.6699 
+
+$m.psiTempElevNDVIRoadPrecip.pEff
+
+Call:
+occu(formula = ~Eff ~ AvgMaxTemp + Elev + NDVI + d.Road + Precip, 
+    data = umf)
+
+Occupancy:
+            Estimate    SE      z P(>|z|)
+(Intercept)   -0.584 0.254 -2.297  0.0216
+AvgMaxTemp    -0.885 0.574 -1.541  0.1233
+Elev          -0.325 0.618 -0.525  0.5995
+NDVI          -0.159 0.480 -0.331  0.7410
+d.Road        -0.447 0.323 -1.383  0.1666
+Precip         0.184 0.299  0.615  0.5385
+
+Detection:
+            Estimate    SE     z P(>|z|)
+(Intercept)   -4.983 2.137 -2.33  0.0197
+Eff            0.498 0.307  1.62  0.1051
+
+AIC: 528.6732 
+
+

@@ -1,0 +1,70 @@
+                                 nPars    AIC delta  AICwt
+m.psiAvgMaxTempRoad.pEff             5 523.16  0.00 0.1131
+m.psiTempmax.pEff                    4 523.30  0.13 0.1058
+m.pEff.psiElev                       4 524.30  1.13 0.0641
+m.psiNDVI.pEff                       4 524.71  1.54 0.0523
+m.psiAvgMaxTempPrecip.pEff           5 524.86  1.69 0.0485
+m.psiTempmaxPrecipRoad.pEff          6 524.95  1.79 0.0462
+m.psiElevTempmaxRoad.pEff            6 525.09  1.92 0.0432
+m.psiAvgMaxTempNDVIRoad.pEff         6 525.16  2.00 0.0416
+--------------------^significant^-------------------------
+m.psiNDVIMaxTemp.pEff                5 525.25  2.08 0.0399
+m.psiElevMaxTemp.pEff                5 525.25  2.09 0.0399
+m.psiElevRoad.pEff                   5 525.35  2.19 0.0378
+mod.eff.road                         4 525.75  2.59 0.0310
+m.psiNDVIRoad.pEff                   5 525.80  2.64 0.0302
+m.pEff.psiPrec                       4 525.81  2.65 0.0301
+m.psiElevPrecip.pEff                 5 526.22  3.06 0.0245
+m.psiElevNDVI.pEff                   5 526.29  3.13 0.0237
+mod0                                 2 526.45  3.29 0.0218
+m.psiPrecipNDVI.pEff                 5 526.49  3.33 0.0214
+m.psiElevTempmaxPrecip.pEff          6 526.68  3.52 0.0195
+m.psiTempElevRoadPrecip.pEff         7 526.78  3.62 0.0185
+m.psiAvgMaxTempPrecipNDVI.pEff       6 526.83  3.67 0.0181
+m.psiTempNDVIRoadPrecip.pEff         7 526.95  3.79 0.0170
+m.psiTempElevNDVIRoad.pEff           7 527.06  3.89 0.0161
+m.psiRoadNDVIElev.pEff               6 527.23  4.07 0.0148
+m.psiElevTempmaxNDVI.pEff            6 527.23  4.07 0.0148
+m.psiPrecipElevRoad.pEff             6 527.35  4.19 0.0139
+m.psiPrecipRoadNDVI.pEff             6 527.71  4.54 0.0117
+m.psiPrecipRoad.pEff                 5 527.75  4.59 0.0114
+m.psiPrecipElevNDVI.pEff             6 528.18  5.02 0.0092
+m.psiTempElevNDVIPrecip.pEff         7 528.67  5.51 0.0072
+m.psiTempElevNDVIRoadPrecip.pEff     8 528.67  5.51 0.0072
+m.psiElevNDVIPrecipRoad.pEff         7 529.21  6.05 0.0055						
+
+
+
+									cumltvWt
+m.psiAvgMaxTempRoad.pEff             0.11
+m.psiTempmax.pEff                    0.22
+m.pEff.psiElev                       0.28
+m.psiNDVI.pEff                       0.34
+m.psiAvgMaxTempPrecip.pEff           0.38
+m.psiTempmaxPrecipRoad.pEff          0.43
+m.psiElevTempmaxRoad.pEff            0.47
+m.psiAvgMaxTempNDVIRoad.pEff         0.51
+m.psiNDVIMaxTemp.pEff                0.55
+m.psiElevMaxTemp.pEff                0.59
+m.psiElevRoad.pEff                   0.63
+mod.eff.road                         0.66
+m.psiNDVIRoad.pEff                   0.69
+m.pEff.psiPrec                       0.72
+m.psiElevPrecip.pEff                 0.75
+m.psiElevNDVI.pEff                   0.77
+mod0                                 0.79
+m.psiPrecipNDVI.pEff                 0.82
+m.psiElevTempmaxPrecip.pEff          0.83
+m.psiTempElevRoadPrecip.pEff         0.85
+m.psiAvgMaxTempPrecipNDVI.pEff       0.87
+m.psiTempNDVIRoadPrecip.pEff         0.89
+m.psiTempElevNDVIRoad.pEff           0.90
+m.psiRoadNDVIElev.pEff               0.92
+m.psiElevTempmaxNDVI.pEff            0.93
+m.psiPrecipElevRoad.pEff             0.95
+m.psiPrecipRoadNDVI.pEff             0.96
+m.psiPrecipRoad.pEff                 0.97
+m.psiPrecipElevNDVI.pEff             0.98
+m.psiTempElevNDVIPrecip.pEff         0.99
+m.psiTempElevNDVIRoadPrecip.pEff     0.99
+m.psiElevNDVIPrecipRoad.pEff         1.00
