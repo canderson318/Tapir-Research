@@ -5,8 +5,8 @@ require(rgl)
 require(lubridate)
 
 
-setwd("C:/Users/chris/Documents/Research")
-df<- read.csv("Tapir Research/Code and Data/all Tapir's data/Malaysia (Malayan Tapir)/Ma_T_Final_Covs.csv")
+setwd("C:/Users/chris/Documents/Research/Tapir Research/Code and Data/all Tapir's data/Costa Rica (Baird Tapir)/")
+df<- read.csv("cv_t3.csv")
 df<- na.omit(df)
 
 #small.df <- df[sample(nrow(df), 2000), ]
@@ -15,39 +15,39 @@ df<- na.omit(df)
 
 
 
-x<- as.numeric(df$Precip)
+x<- as.numeric(df$d.River)
 y<- as.numeric(df$Elev)
 z<- as.numeric(df$d.Road)
 
 data<- data.frame(x,y,z)
 
 
-labs<- c("precip",  "elev", "d.road")
+labs<- c("d.river",  "Elev", "d.road")
 names(data)<- labs
-open3d()
 #---------------------------------------
-
-x<- seq(1, 10, length.out = 20)
-y <- 1/(1+exp(1)^x)#x
-f <- function(x, y) { r <- 1/(1+exp(1)^x);r }
-z <- outer(x, y, f)
-z[is.na(z)] <- 1
+# 
+# x<- seq(1, 10, length.out = 20)
+# y <- 1/(1+exp(1)^x)#x
+# f <- function(x, y) { r <- 1/(1+exp(1)^x);r }
+# z <- outer(x, y, f)
+# z[is.na(z)] <- 1
 
 # Draw the surface twice:  the first draws the solid part, 
 # the second draws the grid.  Offset the first so it doesn't
 # obscure the lines.
-myplot<- function(x,y,z){
-  par3d(windowRect = c(20, 30, 800, 800))
-  bgplot3d(color = "white", expression = NULL)
-  persp3d(x, y, z, aspect = c(1, 1, 0.5), col = "lightblue",
-      xlab = "X", ylab = "Y", zlab = deparse(f), 
-      polygon_offset = 1)
-  persp3d(x, y, z, front = "lines", back = "lines", 
-      lit = FALSE, add = TRUE)
-}
-myplot(x,y,z)
-#---------------------------------------------
+# myplot<- function(x,y,z){
+#   par3d(windowRect = c(20, 30, 800, 800))
+#   bgplot3d(color = "white", expression = NULL)
+#   persp3d(x, y, z, aspect = c(1, 1, 0.5), col = "lightblue",
+#       xlab = "X", ylab = "Y", zlab = deparse(f), 
+#       polygon_offset = 1)
+#   persp3d(x, y, z, front = "lines", back = "lines", 
+#       lit = FALSE, add = TRUE)
+# }
+# myplot(x,y,z)
+# #---------------------------------------------
 
+par3d(windowRect = c(20, 30, 800, 800))
 
 plot3d(x, y, z, xlab = labs[1], ylab = labs[2], zlab= labs[3], type = 's', 
        size = .75, lit = FALSE)
