@@ -5,7 +5,7 @@
 ###------------------------------------------------------------------------------###
 
 rm(list=ls())
-setwd("/Downloads")
+setwd("C:/Users/chris/Documents/Research/Tapir Research/Code and Data/all Tapir's data/Amazon (Lowland Tapir)")
 
 library(unmarked)
 
@@ -24,7 +24,7 @@ sc_t<- read.csv("cv_t_AM_v2.csv")
 head(sc_t)
 
 #scale covariates
-sc_t2<- cbind(sc_t[,1:4], round(scale(sc_t[,5:15]),3))
+sc_t2<- cbind(sc_t[,c(1:4)], round(scale(sc_t[,5:ncol(sc_t)]),3))
 
 #ensure rownames match
 rownames(tapir_t) == rownames(eff_t)
@@ -63,7 +63,9 @@ m.psiFor.pEff<- occu(~Eff~Forest , umf)
 summary(m.psiFor.pEff)
 m.psiNPP.pEff<- occu(~Eff~NPP , umf)
 summary(m.psiNPP.pEff)
-m.psiRoad.pEff<- occu(~Eff~d.Road , umf)   
+m.psiRoad.pEff<- occu(~Eff~d.Road , umf)  
+plogis(0.156)
+plogis(0.265)
 summary(m.psiRoad.pEff)
 m.psiRiver.pEff<- occu(~Eff~d.River, umf)   
 summary(m.psiRiver.pEff)
@@ -79,11 +81,15 @@ m.psiReg.pEff<- occu(~Eff~Dataset , umf)
 summary(m.psiReg.pEff)
 m.psiNDVI.pEff<- occu(~Eff~NDVI , umf)
 summary(m.psiNDVI.pEff)
+m.psiTemp.pEff<- occu(~Eff~Avg.Max.Temp , umf)
+summary(m.psiTemp.pEff)
+m.psiPrecip.pEff<- occu(~Eff~MAP , umf)
+summary(m.psiPrecip.pEff)
+
 
 ##collect in fitList
 detList<-fitList(mod0, m.psi1.pEff,
 		m.psiElev.pEff, 
-		m.psiHFI.pEff,
 		m.psiFor.pEff,
 		m.psiNPP.pEff,
 		m.psiRoad.pEff,
@@ -93,7 +99,9 @@ detList<-fitList(mod0, m.psi1.pEff,
 		m.psiDC.pEff,
 		m.psiWat.pEff,
 		m.psiReg.pEff,
-		m.psiNDVI.pEff)
+		m.psiNDVI.pEff,
+		m.psiTemp.pEff,
+	  m.psiPrecip.pEff)
 
 ##do AIC model selection
 modSel(detList) 
@@ -175,8 +183,6 @@ axis(side = 1, at = 1:4, labels = sort(unique(sc_t2$Dataset)))
 #dev.off()
 
 
-
-
 #Much Lower Models#############################################################
 
 # Plotting top Unicovariate model (Elev)
@@ -219,21 +225,205 @@ points(sort(scale(sc_t2$NDVI)), pred.psi.NDVI$upper, type="l", lty=2)
 # Next step: construct multivariate models with all possible combinations of HFI, Road, ED and Region. 
 # Check what the best performing model is based on AIC values (the same way you did for the unicovariate models)
 
+# 2 covariates
+m.psiTempElev.pEff <- occu(~Eff~Avg.Max.Temp + Elev, umf)
+m.psiTempNDVI.pEff <- occu(~Eff~NDVI + Avg.Max.Temp, umf)
+m.psiTempRoad.pEff <- occu(~Eff~d.Road + Avg.Max.Temp, umf)
+m.psiTempPrecip.pEff <- occu(~Eff~MAP + Avg.Max.Temp, umf)
+m.psiElevNDVI.pEff <- occu(~Eff~NDVI + Elev, umf)
+m.psiElevRoad.pEff <- occu(~Eff~Elev + d.Road, umf)
+m.psiElevPrecip.pEff <- occu(~Eff~Elev + MAP, umf)
+m.psiNDVIroad.pEff <- occu(~Eff~NDVI + d.Road, umf)
+m.psiNDVIprecip.pEff <- occu(~Eff~NDVI + MAP, umf)
+m.psiPrecipRoad.pEff <- occu(~Eff~MAP + d.Road, umf)
 
+detList2 <- fitList(mod0,
+                    m.psiTempElev.pEff, 
+                    m.psiTempNDVI.pEff,
+                    m.psiTempRoad.pEff,
+                    m.psiTempPrecip.pEff, 
+                    m.psiElevNDVI.pEff, 
+                    m.psiElevRoad.pEff, 
+                    m.psiElevPrecip.pEff, 
+                    m.psiNDVIroad.pEff, 
+                    m.psiNDVIprecip.pEff, 
+                    m.psiPrecipRoad.pEff)
+modSel(detList2)
 
+# 3 covariates
+m.psiTempElevNDVI.pEff <- occu(~Eff~Avg.Max.Temp + Elev + NDVI, umf) 
+m.psiTempElevRoad.pEff <- occu(~Eff~Elev + Avg.Max.Temp + d.Road, umf) 
+m.psiTempElevPrecip.pEff <- occu(~Eff~Elev + Avg.Max.Temp + MAP, umf) 
+m.psiTempNDVIRoad.pEff <- occu(~Eff~NDVI + Avg.Max.Temp + d.Road, umf) 
+m.psiTempNDVIPrecip.pEff <- occu(~Eff~NDVI + MAP + Avg.Max.Temp, umf) 
+m.psiTempRoadPrecip.pEff <- occu(~Eff~Avg.Max.Temp + d.Road + MAP, umf) 
+m.psiElevRoadNDVI.pEff <- occu(~Eff~Elev + d.Road + NDVI, umf) 
+m.psiElevPrecipNDVI.pEff <- occu(~Eff~NDVI + Elev + MAP, umf) 
+m.psiElevRoadPrecip.pEff <- occu(~Eff~Elev + d.Road + MAP, umf) 
+m.psiNDVIPrecipRoad.pEff <- occu(~Eff~MAP + d.Road + NDVI, umf) 
 
+detList3 <- fitList(mod0,
+                    m.psiTempElevNDVI.pEff,
+                    m.psiTempElevRoad.pEff,
+                    m.psiTempElevPrecip.pEff,
+                    m.psiTempNDVIRoad.pEff,
+                    m.psiTempNDVIPrecip.pEff,
+                    m.psiTempRoadPrecip.pEff,
+                    m.psiElevRoadNDVI.pEff,
+                    m.psiElevPrecipNDVI.pEff,
+                    m.psiElevRoadPrecip.pEff,
+                    m.psiNDVIPrecipRoad.pEff)
 
+modSel(detList3)
 
+detListf<-fitList(mod0,
+                  m.psi1.pEff,
+                 m.psiElev.pEff, 
+                 m.psiRoad.pEff,
+                 m.psiNDVI.pEff,
+                 m.psiTemp.pEff,
+                 m.psiPrecip.pEff,
+                 m.psiTempElev.pEff, 
+                 m.psiTempNDVI.pEff,
+                 m.psiTempRoad.pEff,
+                 m.psiTempPrecip.pEff, 
+                 m.psiElevNDVI.pEff, 
+                 m.psiElevRoad.pEff, 
+                 m.psiElevPrecip.pEff, 
+                 m.psiNDVIroad.pEff, 
+                 m.psiNDVIprecip.pEff, 
+                 m.psiPrecipRoad.pEff,
+                 m.psiTempElevNDVI.pEff,
+                 m.psiTempElevRoad.pEff,
+                 m.psiTempElevPrecip.pEff,
+                 m.psiTempNDVIRoad.pEff,
+                 m.psiTempNDVIPrecip.pEff,
+                 m.psiTempRoadPrecip.pEff,
+                 m.psiElevRoadNDVI.pEff,
+                 m.psiElevPrecipNDVI.pEff,
+                 m.psiElevRoadPrecip.pEff,
+                 m.psiNDVIPrecipRoad.pEff
+                 )
+modSel(detListf)
 
+# 4 covariates 
+m.psiTempElevNDVIRoad.pEff <- occu(~Eff~Avg.Max.Temp + Elev + NDVI + d.Road, umf) 
+m.psiTempElevNDVIPrecip.pEff <- occu(~Eff~Elev + Avg.Max.Temp + NDVI + MAP, umf) 
+m.psiTempElevRoadPrecip.pEff <- occu(~Eff~Elev + Avg.Max.Temp + MAP + d.Road, umf) 
+m.psiTempNDVIRoadPrecip.pEff <- occu(~Eff~NDVI + Avg.Max.Temp + d.Road + MAP, umf) 
+m.psiElevNDVIPrecipRoad.pEff <- occu(~Eff~NDVI + MAP + Elev + d.Road, umf) 
 
+detList4 <- fitList(mod0,
+                    m.psiTempElevNDVIRoad.pEff,
+                    m.psiTempElevNDVIPrecip.pEff,
+                    m.psiTempElevRoadPrecip.pEff,
+                    m.psiTempNDVIRoadPrecip.pEff,
+                    m.psiElevNDVIPrecipRoad.pEff)
 
+modSel(detList4)
 
+# 5 covariates 
+m.psiTempElevNDVIRoadPrecip.pEff <- occu(~Eff~Avg.Max.Temp + Elev + NDVI + d.Road + MAP, umf) 
 
-
-
-
-
-
+detListfinal <- fitList(mod0, 
+                        m.psi1.pEff,
+                        m.psiElev.pEff, 
+                        m.psiFor.pEff,
+                        m.psiRoad.pEff,
+                        m.psiNDVI.pEff,
+                        m.psiTemp.pEff,
+                        m.psiPrecip.pEff,
+                        m.psiTempElev.pEff, 
+                        m.psiTempNDVI.pEff,
+                        m.psiTempRoad.pEff,
+                        m.psiTempPrecip.pEff, 
+                        m.psiElevNDVI.pEff, 
+                        m.psiElevRoad.pEff, 
+                        m.psiElevPrecip.pEff, 
+                        m.psiNDVIroad.pEff, 
+                        m.psiNDVIprecip.pEff, 
+                        m.psiPrecipRoad.pEff,
+                        m.psiTempElevNDVI.pEff,
+                        m.psiTempElevRoad.pEff,
+                        m.psiTempElevPrecip.pEff,
+                        m.psiTempNDVIRoad.pEff,
+                        m.psiTempNDVIPrecip.pEff,
+                        m.psiTempRoadPrecip.pEff,
+                        m.psiElevRoadNDVI.pEff,
+                        m.psiElevPrecipNDVI.pEff,
+                        m.psiElevRoadPrecip.pEff,
+                        m.psiNDVIPrecipRoad.pEff,
+                        m.psiTempElevNDVIRoadPrecip.pEff,
+                        m.psiTempElevNDVIRoad.pEff,
+                        m.psiTempElevNDVIPrecip.pEff,
+                        m.psiTempElevRoadPrecip.pEff,
+                        m.psiTempNDVIRoadPrecip.pEff,
+                        m.psiElevNDVIPrecipRoad.pEff)
+# sink("lowlandModSel.txt")
+# 
+# modSel(detListfinal)
+# 
+# sink()
+getModelPsiP<- function(){
+  objects<- ls()
+  models<- objects[grepl("^m\\.|^mod", objects)]
+  
+  ##get p and psi for each model#####
+  
+  #Function to give occupancy probabilities (psi) for models
+  pf <- function(x) { 
+    
+    occu <- 0
+    if(length(x@estimates@estimates$state@estimates) > 2) {
+      for(i in 2:length(x@estimates@estimates$state@estimates)) {
+        occu <- (occu + plogis(x@estimates@estimates$state@estimates[i])) 
+      }
+      occu <- occu/(length(x@estimates@estimates$state@estimates)-1)
+    } else {
+      occu <- plogis(x@estimates@estimates$state@estimates[2])
+    }
+    print(paste("𝜓= ", signif(occu, digits = 4)))
+  }
+  
+  # Function to give detection probabilities (p) for models 
+  pd <- function(x) {
+    detp <- 0
+    if(length(x@estimates@estimates$det@estimates) > 2) {
+      for(i in 2:length(x@estimates@estimates$det@estimates)) {
+        detp <- (detp + plogis(x@estimates@estimates$det@estimates[i])) 
+      }
+      detp <- detp/(length(x@estimates@estimates$det@estimates)-1)
+    } else {
+      detp <- plogis(x@estimates@estimates$det@estimates[2])
+    }
+    print(paste("p= ", signif(detp, digits=4)))
+  }
+  
+  pfpd<- function(x){
+    #print(x@formula)
+    pf(x)
+    pd(x)
+  }
+  
+  #perform function input model for object name
+  printPsiP<- function(){
+    n= TRUE
+    x= ' '
+    while (x != ""){
+      if (n){
+        x = readline("enter model name: ")
+        n= FALSE
+      }
+      if (x !=''){
+        print(x)
+        x<- get(x)
+        pfpd(x)
+        x = readline("enter model name: ")
+      }else{break}
+    }
+  
+  }
+}
 
 
 

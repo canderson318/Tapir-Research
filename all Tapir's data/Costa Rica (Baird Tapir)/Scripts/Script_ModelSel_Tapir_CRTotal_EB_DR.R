@@ -1,15 +1,15 @@
 ###------------------------------------------------------------------------------###
-### Combining datasets from CR
-###
+### Running models on baird's
+### Edited 2023-6-29 by Christian 
 ###------------------------------------------------------------------------------###
 
 rm(list=ls())
-setwd("~/Desktop/ Honor's Project/Costa Rica Data")
+setwd("C:/Users/chris/Documents/Research/Tapir Research/Code and Data/all Tapir's data/Costa Rica (Baird Tapir)")
 library(unmarked)
 
-tapir_t<- readRDS("tapir_CR.rds")
+tapir_t<- readRDS("scripts/tapir_CR.rds")
 head(tapir_t)
-eff_t<- readRDS("eff_CR.rds")
+eff_t<- readRDS("scripts/eff_CR.rds")
 head(eff_t)
 cv_t3<- read.csv("cv_t3.csv")
 head(cv_t3)

@@ -44,6 +44,7 @@ m.psiAvgMaxTempPrecip.pEff           0.38
 m.psiTempmaxPrecipRoad.pEff          0.43
 m.psiElevTempmaxRoad.pEff            0.47
 m.psiAvgMaxTempNDVIRoad.pEff         0.51
+---------------------------------------------
 m.psiNDVIMaxTemp.pEff                0.55
 m.psiElevMaxTemp.pEff                0.59
 m.psiElevRoad.pEff                   0.63
