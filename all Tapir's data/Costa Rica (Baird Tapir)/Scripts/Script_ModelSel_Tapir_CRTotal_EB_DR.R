@@ -13,7 +13,7 @@ eff_t<- readRDS("scripts/eff_CR.rds")
 head(eff_t)
 cv_t3<- read.csv("cv_t3.csv")
 head(cv_t3)
-#sc_t2<- cbind(sc_t[,2:5], round(scale(sc_t[,6:14]),3))
+cv_t3<- cbind(cv_t3[,2:5], round(scale(cv_t3[,6:ncol(cv_t3)]),3))
 
 rownames(tapir_t) == rownames(eff_t)
 rownames(eff_t) == cv_t3$Station
@@ -86,18 +86,20 @@ m.pEff.psiPrec<- occu(~Eff ~Precip, umf)
 summary(m.pEff.psiPrec)
 
 ##collect in fitList
-detList<-fitList(mod0, m.psi1.pEff,
-		m.psiElev.pEff, 
-		m.psiHFI.pEff,
-		m.psiFor.pEff,
-		m.psiNPP.pEff,
-		m.psiRoad.pEff,
-		m.psiRiver.pEff,
-		m.psiED.pEff,
-		m.psiPD.pEff,
-		m.psiDC.pEff,
-		m.psiTempmin.pEff, 
-		m.psiTempmax.pEff, m.psiNDVI.pEff)
+detList<-fitList(mod0, 
+                 m.psi1.pEff,
+                 m.psiElev.pEff, 
+              		m.psiHFI.pEff,
+              		m.psiFor.pEff,
+              		m.psiNPP.pEff,
+              		m.psiRoad.pEff,
+              		m.psiRiver.pEff,
+              		m.psiED.pEff,
+              		m.psiPD.pEff,
+              		m.psiDC.pEff,
+              		m.psiTempmin.pEff, 
+              		m.psiTempmax.pEff,
+                 m.psiNDVI.pEff)
 
 ##do AIC model selection
 modSel(detList) 
@@ -285,14 +287,53 @@ m.psiTempElevNDVIPrecip.pEff <- occu(~Eff~ Avg.Max.Temp + Elev + NDVI + Precip, 
 summary(m.psiTempElevNDVIPrecip.pEff)     	 
 
 ##collect in fitList ---> all variables 
-detList2<-fitList(mod0, m.pEff.psiPrec, m.psiElev.pEff, m.psiRoad.pEff, m.psiTempmax.pEff, m.psiNDVI.pEff, m.psiElevRoad.pEff, m.psiElevTempmax.pEff, m.psiElevPrecip.pEff,
-                  m.psiElevNDVI.pEff, m.psiAvgMaxTempPrecip.pEff, m.psiAvgMaxTempRoad.pEff, m.psiAvgMaxTempNDVI.pEff, m.psiPrecipRoad.pEff, m.psiPrecipNDVI.pEff, m.psiNDVIRoad.pEff,
-                  m.psiElevTempmaxPrecip.pEff, m.psiElevTempmaxRoad.pEff, m.psiElevTempmaxNDVI.pEff, m.psiTempmaxPrecipRoad.pEff, m.psiAvgMaxTempPrecipNDVI.pEff,
-                  m.psiAvgMaxTempNDVIRoad.pEff, m.psiPrecipRoadNDVI.pEff, m.psiPrecipElevNDVI.pEff, m.psiPrecipElevRoad.pEff, m.psiRoadNDVIElev.pEff, m.psiTempElevNDVIRoad.pEff,
-                  m.psiElevNDVIPrecipRoad.pEff, m.psiTempElevRoadPrecip.pEff, m.psiTempNDVIRoadPrecip.pEff, m.psiTempElevNDVIPrecip.pEff)
+detList2<-fitList(mod0, 
+                  m.pEff.psiPrec, 
+                  m.psiElev.pEff, 
+                  m.psiRoad.pEff, 
+                  m.psiTempmax.pEff,
+                  m.psiNDVI.pEff, 
+                  m.psiElevRoad.pEff, 
+                  m.psiElevTempmax.pEff,
+                  m.psiElevPrecip.pEff,
+                  m.psiElevNDVI.pEff,
+                  m.psiAvgMaxTempPrecip.pEff, 
+                  m.psiAvgMaxTempRoad.pEff,
+                  m.psiAvgMaxTempNDVI.pEff, 
+                  m.psiPrecipRoad.pEff, 
+                  m.psiPrecipNDVI.pEff, 
+                  m.psiNDVIRoad.pEff,
+                  m.psiElevTempmaxPrecip.pEff,
+                  m.psiElevTempmaxRoad.pEff, 
+                  m.psiElevTempmaxNDVI.pEff,
+                  m.psiTempmaxPrecipRoad.pEff,
+                  m.psiAvgMaxTempPrecipNDVI.pEff,
+                  m.psiAvgMaxTempNDVIRoad.pEff, 
+                  m.psiPrecipRoadNDVI.pEff, 
+                  m.psiPrecipElevNDVI.pEff, 
+                  m.psiPrecipElevRoad.pEff, 
+                  m.psiRoadNDVIElev.pEff, 
+                  m.psiTempElevNDVIRoad.pEff,
+                  m.psiElevNDVIPrecipRoad.pEff, 
+                  m.psiTempElevRoadPrecip.pEff,
+                  m.psiTempNDVIRoadPrecip.pEff, 
+                  m.psiTempElevNDVIPrecip.pEff,
+                  m.psi1.pEff,
+                   
+                  m.psiHFI.pEff,
+                  m.psiFor.pEff,
+                  m.psiNPP.pEff,
+                  
+                  m.psiRiver.pEff,
+                  m.psiED.pEff,
+                  m.psiPD.pEff,
+                  m.psiDC.pEff,
+                  m.psiTempmin.pEff)
 
 ##do AIC model selection
+sink("bairdModSel.txt")
 modSel(detList2) 
+sink()
 #Top Model (for 2 variable) according to AIC= m.psiElevRoad.pEff 
 summary(m.psiElevRoad.pEff)
 
