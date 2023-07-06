@@ -77,5 +77,5 @@ newKamuk<- newKamuk[,-which(colnames(newKamuk) == "newIndependent")]
 
 new_df<- df
 new_df[new_df$Survey.Name %in% newKamuk$Survey.Name,] <- newKamuk
-#write.csv(new_df, "Costa Rica (Baird Tapir)/Master_CR(2023-7-6)-2.csv")
+write.csv(new_df, "Costa Rica (Baird Tapir)/Master_CR(2023-7-6)-2.csv")
 #View(df[,c(5,ncol(df), which(colnames(df) == "datetime"))])
