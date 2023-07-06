@@ -75,6 +75,7 @@ newKamuk<- newKamuk[,-which(colnames(newKamuk) == "newIndependent")]
 
 #add new Independence values to independent column of df where image.ID matches for both dataframes
 
-testdf<- df[(nrow(df) - 5000):nrow(df),]
-testdf[testdf$Survey.Name %in% newKamuk$Survey.Name,] <- newKamuk
+new_df<- df
+new_df[new_df$Survey.Name %in% newKamuk$Survey.Name,] <- newKamuk
+#write.csv(new_df, "Costa Rica (Baird Tapir)/Master_CR(2023-7-6)-2.csv")
 #View(df[,c(5,ncol(df), which(colnames(df) == "datetime"))])
