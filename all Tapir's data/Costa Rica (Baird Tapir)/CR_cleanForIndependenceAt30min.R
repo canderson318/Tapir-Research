@@ -30,7 +30,7 @@ raw$Independent<- ifelse(raw$Independent %in% no, 0, ifelse(raw$Independent %in%
 unique(raw$Survey.Name[is.na(raw$Independent) ]) # surveys "Kamuk 2021 (March-July)" and "Kamuk 2021 (July-February)"
 
 
-#format dates to date class given the df's month/day/full-year-number format
+#format dates to date class given the df's month/day/full-year-number format BE CAREFUL AND CHECK FOR LOSSY CHANGES
 raw$Date<- base::as.Date(raw$Date, format = "%m/%d/%Y") #tryFormats= c("%m-%d-%Y", "%m-%d-%y", "%m/%d/%Y", "%m/%d/%y", "%y-%m-%d", "%Y-%m-%d", "%y/%m/%d", "%Y/%m/%d"))
 
 #check for what type of formats in date and time

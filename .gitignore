@@ -3,3 +3,5 @@
 .RData
 .Ruserdata
 all Tapir's data/Costa Rica (Baird Tapir)/Master_CR(2023-7-6)-2.csv
+all Tapir's data/Costa Rica (Baird Tapir)/Wild_ID_Kamuk_21_March-July.csv
+*.csv
