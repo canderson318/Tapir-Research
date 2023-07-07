@@ -13,11 +13,11 @@ master<- read.csv("Tapir Research/Code and Data/all Tapir's data/Costa Rica (Bai
 
 
 #remove records where family is "" --empty but not NA, and species filled
-new.raw<- filter(new.raw, Family != "") #need dplyr or lubridate, can't remember which
+new.raw<- filter(new.raw, Family != "")
 new.raw<- filter(new.raw, nchar(Species) > 1)
 
-##lets see what column names need to change
-#names<- list(names(master),names(new.raw) )
+#lets see what column names need to change
+names<- list(names(master),names(new.raw) )
 
 #make new df with matching columns
 
@@ -69,14 +69,14 @@ animals<- read.csv("WildID/Kamuk2021-22_WildID_stuff/2023-7-6_species_list.csv",
 #combine the common names to the main on the shared species column
 new_merged<- merge(new, animals, by = "Species", all.x = TRUE)
 
-if ((nrow(new_merged) - nrow(new)) == 0){ print("successfull merge, nrow equal")
+if ((nrow(new_merged) - nrow(new)) == 0){ print("successfull merge")
 }
 
 #rename Common.y to Common
 names(new_merged)[which(names(new_merged) == "Common.y")]<- "Common"
 
 #derive independence
-unique(new_merged$Independent)
+unique(raw$Independent)
 
 #explanation of function: 
 # this func makes vectors of each column lat, long, and datetime and shifts them left one (excluding first value) and right one index (excluding last value) 
@@ -99,71 +99,21 @@ test_independence <- function(data) {
   return(data) #return dataframe with independence column filled
 }
 
-mycols<- c(1,3,4,6,7,28,21,22)
-head(new_merged[,mycols])
-
-
-
-#first need datetime column for comparisons in test_independence func
-new_merged$datetime <- as.POSIXct(paste(base::as.Date(new_merged$Date, format = "%m/%d/%Y") , new_merged$Time),
-                                  tz = "America/Costa_Rica",
-                                  format = "%Y-%m-%d %H:%M:%S")
-
-
-new_merged_ind<- test_independence(new_merged)
-
-head(new_merged_ind[,c(mycols, ncol(new_merged), ncol(new_merged_ind))])
-
-#remove datetime
-new_merged_ind<- new_merged_ind[,-which(colnames(new_merged_ind) == "datetime")]
-
-#change newIndependent to indendent and delete newIndependent
-new_merged_ind$Independent<- new_merged_ind$newIndependent
-new_merged_ind<- new_merged_ind[,-which(colnames(new_merged_ind) == "newIndependent")]
-
-#convert date back to char in master's date format
-if (class(new_merged_ind$Date) == "Date"){ 
-  new_merged_ind$Date<- as.character(format(new_merged_ind$Date, format= "%m/%d/%Y"))
-}else{print("Date not date class. Check format to match month/day/Year ")}
-
-
-
- #Check what dates exist in df
-attach(master)
-print("min = "); min(as.numeric(substr(Date, (nchar(Date) - 3),  nchar(Date) )))
-print("max = "); max(as.numeric(substr(Date, (nchar(Date) - 3),  nchar(Date) )))
-
-#what surveys have 2010 date
-unique(Survey.Name[substr(Date, (nchar(Date) - 3),  nchar(Date) ) == "2010"  ])
-
-
-View(master[master$Survey.Name == "Chirripo 2016" , which(colnames(master) %in% c("Date", "Survey.Name", "Camera.Start.Date", "Image.ID"))])
-
-detach(master)
-
-
-
-
-
-
-
-
-
 #((((>> Merge master and new <<))))
 
 # #vectorize column names for logical operation
-new_merged_ind_cols<- c(colnames(new_merged_ind))
+new_merged_cols<- c(colnames(new_merged))
 master_cols<- c(colnames(master))
 
 #tell me what columns need to be changed. what columns in kamuk are not in master
 if (!all(new_merged_cols %in% master_cols)){
-  print(paste(new_merged_cols[!new_merged_cols %in% master_cols], "not in destination df "))
+  print(paste(new_merged_cols[!new_merged_cols %in% master_cols], "not in destination df \n"))
 } else{
   print("Correct columns present in data.frame")
 }
 
 #remove superfluous column using its index
-Kamuk<- new_merged_ind[,-which(colnames(new_merged_ind) == "Common.x")]
+Kamuk<- new_merged[,-which(colnames(new_merged) == "Common.x")]
 
 #save kamuk on its own
 #write.csv(Kamuk, "Tapir Research/Code and Data/all Tapir's data/Costa Rica (Baird Tapir)/Kamuk21-22_March-July_clean(2023-7-6).csv",row.names = FALSE)
@@ -172,14 +122,16 @@ joined_df<- rbind(Kamuk, master)#it all comes together (make sure date formats m
 
 print(unique(guess_formats(joined_df$Date, c("Ymd", "mdY", "ymd", "dmY", "dmy"))))
 
-#check for no forced date formats which convert 2/2/2014 >> 2/2/20
+#check for no forced date formats
 print(joined_df[grep("/20$", joined_df$Date) ,])
 
 #check for new rows
-(nrow(joined_df) - (nrow(master) + nrow(new_merged_ind)))
+(nrow(joined_df) - (nrow(master) + nrow(new_merged)))
 
 #save combined df
-write.csv(joined_df, "Tapir Research/Code and Data/all Tapir's data/Costa Rica (Baird Tapir)/Master(2023-7-7)-2.csv",row.names= FALSE)
+write.csv(joined_df, 
+          "Tapir Research/Code and Data/all Tapir's data/Costa Rica (Baird Tapir)/Master(2023-7-7)-2.csv",
+          row.names= FALSE)
 
 
 
