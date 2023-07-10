@@ -83,4 +83,4 @@ master<- master[, -which(colnames(master) %in% c("newIndependent", "Nas"))]
 
 #>> Write csv <<
 
-write.csv(master, "Tapir Research/Code and Data/all Tapir's data/Costa Rica (Baird Tapir)/CR_Master(2023-7-10).csv")
+#write.csv(master, "Tapir Research/Code and Data/all Tapir's data/Costa Rica (Baird Tapir)/CR_Master(2023-7-10).csv")
