@@ -121,7 +121,7 @@ head(s)
 active <- s[,c("Camr_Nm","Cmr_S_D","Cmr_E_D")]
 
 #cbind(active, tw)
-
+#> make sequence of days from start of survey to end
 ext.date<- range(na.omit(as.Date(c(active[,"Cmr_S_D"], active[,"Cmr_E_D"]), "%Y-%m-%d")))
 out<- as.character(seq(as.Date(ext.date[1]),as.Date(ext.date[2]), by="days"))
 
@@ -130,12 +130,12 @@ ston<- data.frame(matrix(0, nrow = nrow(active), ncol = length(out)))
 colnames(ston)<- as.character(seq(as.Date(ext.date[1]),as.Date(ext.date[2]), by="days"))
 rownames(ston)<- active$CTname
 
-for(ct in 1:nrow(active)){
-  #if(active[ct,"Cmr_S_D"]== "NA" | active[ct,"Cmr_E_D"]== "NA") next 
-  x<- as.character(seq(as.Date(active[ct,"Cmr_S_D"]),as.Date(active[ct,"Cmr_E_D"]), by="days"))
-  for(d1 in 1: length(x)){
-    for(d2 in 1:length(out)){	
-      if(x[d1]==out[d2]){ston[ct, d2]<-1}  
+for(ct in 1:nrow(active)){#-   -   --   -   --   -   --   -   --   -   --   -   --   -   - -   - #for length of dates
+  #if(active[ct,"Cmr_S_D"]== "NA" | active[ct,"Cmr_E_D"]== "NA") next                       
+  x<- as.character(seq(as.Date(active[ct,"Cmr_S_D"]),as.Date(active[ct,"Cmr_E_D"]), by="days"))  #x is sequence of days btw start and end date of that row (ct)
+  for(d1 in 1: length(x)){#-   -   --   -   --   -   --   -   --   -   --   -   --   -   -  - -  #for each day (column) of x
+    for(d2 in 1:length(out)){#-   -   --   -   --   -   --   -   --   -   --   -   --   -   -  - #for each day of survey sequence from start to end
+      if(x[d1]==out[d2]){ston[ct, d2]<-1}  #-   -   --   -   --   -   --   -   --   -   --   -   #if if the dates x[d1] adn out[d2] are equal, ston at ct, d2 = 1 (that camera is active on that day)
     }
   }
 }
@@ -158,7 +158,7 @@ head(recs_loc.all)
 
 #write to csv
 #write.csv(recs_loc.all, "recs_loc.all_MountainTapir_revised_DR.csv", row.names=F)
-write.csv(ston, "ston_MoutainTapir_revised_DR.csv", row.names=T)
+#write.csv(ston, "ston_MoutainTapir_revised_DR.csv", row.names=T)
 
 
 ############################################################################################
