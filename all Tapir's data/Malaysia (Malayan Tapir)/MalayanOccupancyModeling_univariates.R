@@ -68,7 +68,7 @@ summary(m.p1.psiPrec)
 #~1 ~Road - NEEDS TO BE DONE STILL
 m.p1.psiroad<- occu(~1~d.Road, umf) 
 summary(m.p1.psiroad)
-
+ 
 #~Eff ~HFI
 m.pEff.psiHFI<- occu(~Eff ~HFI, umf)
 summary(m.pEff.psiHFI)

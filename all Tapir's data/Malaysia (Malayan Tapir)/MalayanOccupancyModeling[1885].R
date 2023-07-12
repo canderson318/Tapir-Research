@@ -3,7 +3,7 @@ rm(list=ls())
 
 #set wd
 setwd("C:/Users/chris/Documents/Research/Tapir Research/Code and Data/all Tapir's data/Malaysia (Malayan Tapir)")
-dir()
+
 
 ######Read in Tapir table and Effort###########
 tapir<- readRDS("Collapsed_Capture_Malayan_Tapir.rds")
@@ -45,16 +45,17 @@ head(cov)
 ######Running Models!####################################
 #Running Null model
 mod0 <- occu(~1~1, umf)  # Null Model
-summary(mod0)
+#summary(mod0)
 
 # Running model with Eff as survey covariate
+
 m.psi1.pEff<- occu(~Eff~1, umf)  # Eff Model
-summary(m.psi1.pEff)
+#summary(m.psi1.pEff)
 
 #~1 ~HFI
 
 m.p1.psiHFI<- occu(~1~HFI, umf)
-summary(m.p1.psiHFI)
+#summary(m.p1.psiHFI)
 
 #~1 ~Elev
 m.p1.psiElev<- occu(~1 ~Elev, umf) #--> significant
@@ -102,14 +103,16 @@ summary(m.psiNDVI.pEff)
 #detList is the name of the list, fitList compares the models with each other
 #detList.tapir<-fitList(mod0, m.psi1.pEff, m.p1.psiHFI, m.p1.psiElev, m.p1.psiPrec, m.pEff.psiPrec, m.pEff.psiElev, m.pEff.psiHFI)
 detList.tapir<-fitList(mod0, 
+                       m.psi1.pEff,
                        m.pEff.psiPrec, 
                        m.pEff.psiElev,
                        mod.eff.road, 
                        m.psiTempmax.pEff,
                        m.psiNDVI.pEff)
 # modSel compares AND ranks the models against eachother!
+sink("modeseltest.txt")
 modSel(detList.tapir)
-
+sink()
 #####Plotting##############################################################
 hist(cov$d.Road)
 #pdf("Tapir_unicovRoad_CRtotal.pdf")
@@ -240,7 +243,7 @@ detList.tapir<-fitList(mod0, m.psiTempElevNDVIRoadPrecip.pEff)
 modSel(detList.tapir) ###Only empirically supported two-variable multicovariate models are: ElevRoad and ElevPrecip
 
 
-detList2<-fitList(mod0, m.pEff.psiPrec, m.pEff.psiElev, mod.eff.road, m.psiTempmax.pEff, m.psiNDVI.pEff,
+detList2<-fitList(mod0, m.psi1.pEff, m.pEff.psiPrec, m.pEff.psiElev, mod.eff.road, m.psiTempmax.pEff, m.psiNDVI.pEff,
                   m.psiElevNDVI.pEff, m.psiElevTempmax.pEff, m.psiAvgMaxTempNDVI.pEff, m.psiElevPrecip.pEff,
                   m.psiElevRoad.pEff, m.psiAvgMaxTempPrecip.pEff, m.psiAvgMaxTempRoad.pEff, m.psiPrecipRoad.pEff,
                   m.psiPrecipNDVI.pEff, m.psiNDVIRoad.pEff, m.psiElevTempmaxPrecip.pEff, m.psiElevTempmaxRoad.pEff,
@@ -249,6 +252,8 @@ detList2<-fitList(mod0, m.pEff.psiPrec, m.pEff.psiElev, mod.eff.road, m.psiTempm
                   m.psiPrecipElevRoad.pEff, m.psiRoadNDVIElev.pEff, m.psiTempElevNDVIRoad.pEff, m.psiElevNDVIPrecipRoad.pEff,
                   m.psiTempElevRoadPrecip.pEff, m.psiTempNDVIRoadPrecip.pEff, m.psiTempElevNDVIPrecip.pEff,
                   m.psiTempElevNDVIRoadPrecip.pEff)
+
+
 modSel(detList2)
 
 # #print to text file
