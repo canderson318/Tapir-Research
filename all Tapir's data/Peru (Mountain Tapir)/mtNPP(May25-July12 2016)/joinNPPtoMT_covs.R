@@ -7,12 +7,22 @@ rm(list = ls())
 
 setwd("C:/Users/chris/Documents/Research/Tapir-Research/all Tapir's data/Peru (Mountain Tapir)/")
 MT_covs<-read.csv("Model Selection/Mt_T_Covs4.csv")
-npp<- read.csv("MT_NPP.csv")
-#rename headers to destination names
-names(npp)<- c("Latitud", "Longitd", "NPP")
+npp<- read.csv("mtNPP(May25-July12 2016)/MT_NPP_new.csv")
 
-mt<- merge(MT_covs, npp, by= c("Latitud", "Longitd"), all.x= TRUE )
+#rename headers to incoming's names
+newnames<- c("lat", "lon")
+names(MT_covs)[3:4]<- newnames
 
-write.csv(mt, "MT_covs.csv")
-View(mt)
 
+mt<- merge(MT_covs, npp[,-3], by= c("lat", "lon"), all.x= TRUE )
+
+#change col name
+names(mt)[ncol(mt)]<- "NPP"
+
+#write.csv(mt, "MT_covs_new.csv")
+
+df<- data.frame(scaledOldNPP = scale(order(npp$NPP)), scaledNewNPP = scale(order(npp$newNPP1)))
+ggplot(data= df, aes(x = scaledOldNPP, y= scaledNewNPP))+
+  geom_smooth()
+
+cor(df)

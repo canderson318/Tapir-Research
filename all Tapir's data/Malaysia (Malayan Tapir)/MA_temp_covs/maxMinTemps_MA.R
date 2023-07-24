@@ -14,7 +14,7 @@ joinMaxTemp<- function(maximumTempCSV, minimumTempCSV){
   min['Avg.Max.Temp']<- max$Avg.Max.Temp1
   
   #rename temp columns
-  names.new<- c("Min Temp (C)", "Min Temp (C)")
+  names.new<- c("Min Temp (C)", "Max Temp (C)")
   names(min)[8:9] <- names.new
   
   #make file name and save as CSV file
